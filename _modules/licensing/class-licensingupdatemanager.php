@@ -56,6 +56,33 @@ class LicensingUpdateManager {
 	public $notice = false;
 
 	/**
+	 * Holds an array of submenus to display, if any
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     bool|array
+	 */
+	private $show_submenus = false;
+
+	/**
+	 * Holds an array of permitted users, if any
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     bool|array
+	 */
+	private $permitted_users = false;
+
+	/**
+	 * Holds the current logged in User
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     bool|WP_User
+	 */
+	private $current_user = false;
+
+	/**
 	 * Constructor.
 	 *
 	 * @since   1.0.0
@@ -117,6 +144,17 @@ class LicensingUpdateManager {
 		// Check for updates, outside of is_admin() so WP-CLI is supported.
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'api_check' ), 50 );
 		add_action( 'delete_site_transient_update_plugins', array( $this, 'cache_delete' ) );
+
+	}
+
+	/**
+	 * Outputs the Licensing Screen
+	 *
+	 * @since   1.0.0
+	 */
+	public function licensing_screen() {
+
+		include_once 'views/licensing.php';
 
 	}
 
@@ -699,6 +737,141 @@ class LicensingUpdateManager {
 
 		// Return.
 		return $plugins;
+
+	}
+
+/**
+	 * Determines whether the logged in WordPress User has access to a particular
+	 * feature, by:
+	 * - checking if the license key has access control options,
+	 * - the feature is defined in the wp-config file,
+	 * - the value in the wp-config file permits or denies access
+	 *
+	 * This function assumes access until a condition revokes it.
+	 *
+	 * @since   2.1.7
+	 *
+	 * @param   string $parameter  Feature Parameter the user is attempting to access.
+	 * @return  bool                User can access feature
+	 */
+	public function can_access( $parameter ) {
+
+		// If the logged in user is always permitted to use the Plugin, always allow access,
+		// ignoring any other setting.
+		if ( $this->is_logged_in_user_always_permitted() ) {
+			return true;
+		}
+
+		switch ( $parameter ) {
+
+			/**
+			 * Menu
+			 */
+			case 'show_menu':
+				return $this->display_menu();
+
+			/**
+			 * Submenu
+			 */
+			default:
+				list( $ignored, $submenu ) = explode( 'show_menu_', $parameter );
+				return $this->display_submenu( $submenu );
+
+		}
+
+	}
+
+	/**
+	 * Determines if the Plugin's Top Level Menu should be displayed
+	 *
+	 * @since   1.0.0
+	 *
+	 * @return  bool    Display Menu
+	 */
+	private function display_menu() {
+
+		return $this->get_feature_parameter( 'access_control', 'show_menu', true );
+
+	}
+
+	/**
+	 * Determines if the given Plugin's Child / Sub Menu should be displayed
+	 *
+	 * @since   1.0.0
+	 *
+	 * @param   string $submenu    Submenu to Display.
+	 * @return  bool                Display Submenu
+	 */
+	private function display_submenu( $submenu ) {
+
+		// Get submenus to display.
+		if ( ! $this->show_submenus ) {
+			$this->show_submenus = $this->get_feature_parameter( 'access_control', 'show_submenus', true );
+		}
+
+		// For backward compatibility, check some other submenu constants that might exist in 2.1.7 - 2.4.3
+		// e.g. PAGE-GENERATOR_PRO_SHOW_MENU_SETTINGS, which is now PAGE-GENERATOR-PRO-SHOW_SUBMENUS = settings.
+		if ( defined( strtoupper( $this->plugin->name ) . '_SHOW_MENU_' . strtoupper( $submenu ) ) ) {
+			return constant( strtoupper( $this->plugin->name ) . '_SHOW_MENU_' . strtoupper( $submenu ) );
+		}
+
+		// If no submenus to display are specified, allow all submenus.
+		if ( ! is_array( $this->show_submenus ) ) {
+			return true;
+		}
+		if ( ! count( $this->show_submenus ) ) {
+			return true;
+		}
+
+		// Check if the submenu is a permitted submenu.
+		return in_array( $submenu, $this->show_submenus, true );
+
+	}
+
+	/**
+	 * Determines if the logged in User is always permitted to access the Plugin, regardless
+	 * of any other settings that might be defined.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @return  bool    User is permitted
+	 */
+	private function is_logged_in_user_always_permitted() {
+
+		// Get permitted users.
+		if ( ! $this->permitted_users ) {
+			$this->permitted_users = $this->get_feature_parameter( 'access_control', 'permitted_users', false );
+		}
+
+		// If no permitted users are specified, the user is not permitted to override access control settings.
+		if ( ! $this->permitted_users ) {
+			return false;
+		}
+		if ( empty( $this->permitted_users ) ) {
+			return false;
+		}
+
+		// Fetch the logged in User.
+		if ( ! $this->current_user ) {
+			$this->current_user = wp_get_current_user();
+		}
+
+		// Check if the logged in User is a permitted User.
+		foreach ( $this->permitted_users as $permitted_user ) {
+			// Permitted user can be a User ID, username or email address.
+			if ( $this->current_user->user_login == $permitted_user ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
+				return true;
+			}
+			if ( $this->current_user->user_email == $permitted_user ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
+				return true;
+			}
+			if ( $this->current_user->ID == $permitted_user ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual
+				return true;
+			}
+		}
+
+		// If here, the user is not permitted.
+		return false;
 
 	}
 

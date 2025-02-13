@@ -110,14 +110,28 @@ class Fomo_Notifications_Admin_Settings {
 	 */
 	public function add_settings_page() {
 
-		add_menu_page(
-			__( 'FOMO Notifications', 'fomo-notifications' ),
-			__( 'FOMO Notifications', 'fomo-notifications' ),
-			'manage_options',
-			self::SETTINGS_PAGE_SLUG,
-			array( $this, 'display_settings_page' ),
-			FOMO_NOTIFICATIONS_PLUGIN_URL . 'resources/backend/images/icons/logo-light.svg'
-		);
+		// Define the minimum capability required to access settings.
+		$minimum_capability = 'manage_options';
+
+		/**
+		 * Defines the minimum capability required to access the Plugin's
+		 * Menu and Sub Menus
+		 *
+		 * @since   1.0.0
+		 *
+		 * @param   string  $capability     Minimum Required Capability.
+		 * @return  string                  Minimum Required Capability
+		 */
+		$minimum_capability = apply_filters( 'fomo_notifications_admin_settings_minimum_capability', $minimum_capability );
+
+		/**
+		 * Add settings menus and sub menus for the Plugin's settings.
+		 * 
+		 * @since 	1.0.0
+		 * 
+		 * @param 	string 	$minimum_capability 	Minimum capability required.
+		 */
+		do_action( 'fomo_notifications_admin_settings_add_settings_page', $minimum_capability );
 
 	}
 

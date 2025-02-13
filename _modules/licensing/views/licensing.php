@@ -9,10 +9,10 @@
 ?>
 <div class="wrap">
 	<h1 class="wp-heading-inline">
-		<?php echo esc_html( $this->base->plugin->displayName ); ?>
+		<?php echo esc_html( $this->plugin->displayName ); ?>
 
 		<span>
-			<?php esc_html_e( 'Licensing', $this->base->plugin->name ); // phpcs:ignore WordPress.WP.I18n ?>
+			<?php esc_html_e( 'Licensing', $this->plugin->name ); // phpcs:ignore WordPress.WP.I18n ?>
 		</span>
 	</h1>
 
@@ -29,7 +29,6 @@
 		<?php
 	}
 	?>
-
 
 	<div class="wrap-inner">
 		<div id="poststuff">

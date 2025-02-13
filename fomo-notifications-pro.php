@@ -6,7 +6,7 @@
  * @author WP Zinc
  *
  * @wordpress-plugin
- * Plugin Name: FOMO Notifications
+ * Plugin Name: FOMO Notifications Pro
  * Plugin URI: http://www.wpzinc.com/plugins/fomo-notifications-pro
  * Version: 1.0.0
  * Author: WP Zinc
@@ -17,6 +17,9 @@
 
 // Bail if Plugin is already loaded.
 if ( class_exists( 'Fomo_Notifications_Pro' ) ) {
+	return;
+}
+if ( defined( 'FOMO_NOTIFICATIONS_PLUGIN_VERSION' ) ) {
 	return;
 }
 

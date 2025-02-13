@@ -77,6 +77,20 @@ class Fomo_Notifications {
 
 		$this->classes['admin_settings'] = new Fomo_Notifications_Admin_Settings();
 
+		// Register admin menu.
+		add_action( 'fomo_notifications_admin_settings_add_settings_page', function() {
+
+			add_menu_page(
+				__( 'FOMO Notifications', 'fomo-notifications' ),
+				__( 'FOMO Notifications', 'fomo-notifications' ),
+				'manage_options',
+				'fomo-notifications-settings',
+				array( $this->classes['admin_settings'], 'display_settings_page' ),
+				FOMO_NOTIFICATIONS_PLUGIN_URL . 'resources/backend/images/icons/logo-light.svg'
+			);
+
+		} );
+
 		/**
 		 * Initialize integration classes for the WordPress Administration interface.
 		 *

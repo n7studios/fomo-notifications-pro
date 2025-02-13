@@ -24,6 +24,33 @@ class Fomo_Notifications_Pro {
 	private static $instance;
 
 	/**
+	 * Holds the plugin information object.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     object
+	 */
+	public $plugin;
+
+	/**
+	 * Holds the dashboard class object.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     object
+	 */
+	public $dashboard;
+
+	/**
+	 * Holds the licensing class object.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     object
+	 */
+	public $licensing;
+
+	/**
 	 * Holds singleton initialized classes that include
 	 * action and filter hooks.
 	 *
@@ -42,16 +69,16 @@ class Fomo_Notifications_Pro {
 
 		// Plugin Details.
 		$this->plugin                    = new stdClass();
-		$this->plugin->name              = 'fomo-notifications-pro';
+		$this->plugin->name              = 'fomo-notifications';
 		$this->plugin->displayName       = 'FOMO Notifications Pro';
 		$this->plugin->author_name       = 'WP Zinc';
-		$this->plugin->version           = FOMO_NOTIFICATIONS_PRO_PLUGIN_VERSION;
-		$this->plugin->buildDate         = FOMO_NOTIFICATIONS_PRO_PLUGIN_BUILD_DATE;
+		$this->plugin->version           = FOMO_NOTIFICATIONS_PLUGIN_VERSION;
+		$this->plugin->buildDate         = FOMO_NOTIFICATIONS_PLUGIN_BUILD_DATE;
 		$this->plugin->requires          = '5.0';
 		$this->plugin->tested            = '6.1.1';
 		$this->plugin->php_requires      = '7.4';
-		$this->plugin->folder            = FOMO_NOTIFICATIONS_PRO_PLUGIN_PATH;
-		$this->plugin->url               = FOMO_NOTIFICATIONS_PRO_PLUGIN_URL;
+		$this->plugin->folder            = FOMO_NOTIFICATIONS_PLUGIN_PATH;
+		$this->plugin->url               = FOMO_NOTIFICATIONS_PLUGIN_URL;
 		$this->plugin->documentation_url = 'https://www.wpzinc.com/documentation/fomo-notifications-pro';
 		$this->plugin->support_url       = 'https://www.wpzinc.com/support';
 		$this->plugin->upgrade_url       = 'https://www.wpzinc.com/plugins/fomo-notifications-pro';
@@ -129,8 +156,6 @@ class Fomo_Notifications_Pro {
 	 */
 	public function initialize() {
 
-		$this->classes = new stdClass();
-
 		$this->initialize_admin();
 		$this->initialize_frontend();
 		$this->initialize_global();
@@ -150,6 +175,40 @@ class Fomo_Notifications_Pro {
 		}
 
 		$this->classes['admin_settings'] = new Fomo_Notifications_Admin_Settings();
+
+		// Register menus and submenus.
+		add_action( 'fomo_notifications_admin_settings_add_settings_page', function( $minimum_capability ) {
+
+			// Bail if we cannot access any menus.
+			if ( ! $this->licensing->can_access( 'show_menu' ) ) {
+				return;
+			}
+
+			// Licensing.
+			add_menu_page( $this->plugin->displayName, $this->plugin->displayName, $minimum_capability, $this->plugin->name, array( $this->licensing, 'licensing_screen' ), $this->plugin->url . 'resources/backend/images/icons/logo-light.svg' );
+			add_submenu_page( $this->plugin->name, __( 'Licensing', 'wp-to-social-pro' ), __( 'Licensing', 'wp-to-social-pro' ), $minimum_capability, $this->plugin->name, array( $this->licensing, 'licensing_screen' ) );
+
+			// Bail if the product is not licensed.
+			if ( ! $this->licensing->check_license_key_valid() ) {
+				return;
+			}
+
+			// Licensed - add additional menu entries, if access permitted.
+			if ( $this->licensing->can_access( 'show_menu_settings' ) ) {
+				$settings_page = add_submenu_page( $this->plugin->name, __( 'Settings', 'fomo-notifications' ), __( 'Settings', 'fomo-notifications' ), $minimum_capability, $this->plugin->name . '-settings', array( $this->classes['admin_settings'], 'display_settings_page' ) );
+			}
+
+			// Import & Export.
+			if ( $this->licensing->can_access( 'show_menu_import_export' ) ) {
+				do_action( 'fomo_notifications_admin_menu_import_export' );
+			}
+
+			// Support.
+			if ( $this->licensing->can_access( 'show_menu_support' ) ) {
+				do_action( 'fomo_notifications_admin_menu_support' );
+			}
+
+		} );
 
 		/**
 		 * Initialize integration classes for the WordPress Administration interface.
