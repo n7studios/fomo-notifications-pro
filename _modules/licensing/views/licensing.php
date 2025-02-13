@@ -7,15 +7,15 @@
  */
 
 ?>
-<div class="wrap">
-	<h1 class="wp-heading-inline">
-		<?php echo esc_html( $this->plugin->displayName ); ?>
-
-		<span>
-			<?php esc_html_e( 'Licensing', $this->plugin->name ); // phpcs:ignore WordPress.WP.I18n ?>
-		</span>
+<header>
+	<h1>
+		<?php esc_html_e( 'Licensing', $this->plugin->name ); // phpcs:ignore WordPress.WP.I18n ?>
 	</h1>
+</header>
 
+<hr class="wp-header-end" />
+
+<div class="wrap">
 	<?php
 	// Notices.
 	if ( isset( $this->message ) ) {

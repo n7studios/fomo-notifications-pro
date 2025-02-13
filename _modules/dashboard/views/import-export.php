@@ -7,17 +7,15 @@
  */
 
 ?>
-<div class="wrap">
-	<h1 class="wp-heading-inline">
-		<?php echo esc_html( $this->plugin->displayName ); ?>
-
-		<span>
-			<?php esc_html_e( 'Import &amp; Export', $this->plugin->name ); // phpcs:ignore WordPress.WP.I18n ?>
-		</span>
+<header>
+	<h1>
+		<?php esc_html_e( 'Import &amp; Export', $this->plugin->name ); // phpcs:ignore WordPress.WP.I18n ?>
 	</h1>
+</header>
 
-	<hr class="wp-header-end" />
+<hr class="wp-header-end" />
 
+<div class="wrap">
 	<?php
 	// Notices.
 	if ( isset( $this->message ) && ! empty( $this->message ) ) {
@@ -47,7 +45,7 @@
 					<!-- Content -->
 					<div id="post-body-content">
 						<div id="normal-sortables" class="meta-box-sortables ui-sortable publishing-defaults">  
-							<div class="postbox wpzinc-vertical-tabbed-ui">
+							<div class="postbox wpzinc-vertical-tabbed-ui no-padding">
 								<!-- Second level tabs -->
 								<ul class="wpzinc-nav-tabs wpzinc-js-tabs" data-panels-container="#import-export-container" data-panel=".panel" data-active="wpzinc-nav-tab-vertical-active">
 									<li class="wpzinc-nav-tab download">

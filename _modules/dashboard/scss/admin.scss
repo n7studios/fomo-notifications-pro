@@ -37,32 +37,164 @@ body#wpzinc-error-page {
 }
 
 /**
- * About Screen UI
+ * New Settings UI.
  */
-.about-wrap {
-	.about-text {
-		min-height: auto;
+body.wpzinc {
+	background: #f9f7f4;
+
+	#wpbody-content {
+		padding-left: 0;
+
+		> header {
+			height: 98px;
+			padding: 0 20px;
+			background: url(../../../resources/backend/images/icons/logo-dark.svg) 30px 50% no-repeat;
+			background-size: 50px auto;
+			background-color: #ffffff;
+		
+			h1 {
+				float: left;
+				margin: 0;
+				padding: 0;
+				font-size: 24px;
+				font-weight: 600;
+				color: #3d3d3d;
+				line-height: 98px;
+				text-indent: 70px;
+			}
+
+			a.fomo-notifications-docs {
+				float: right;
+				line-height: 98px;
+				padding: 0 20px;
+				font-weight: 400;
+				color: #144264;
+				text-decoration: none;
+			}
+		}
 	}
+	
+	.wrap {
+		margin-left: 20px;
 
-	form {
-		label {
-			display: block;
-			margin: 0 200px 20px 0;
+		/**
+		 * Notices
+		 */
+		.notice {
+			margin-top: 0;
+		}
+
+		/**
+		 * Tabs
+		 */
+		ul.fomo-notifications-tabs {
+			margin: 0 0 25px 0;
+			padding: 0;
+			list-style-type: none;
+			border-bottom: 1px solid #d0d0cf;
 			
-			.description {
-				margin: 5px 0 0 25px;
+			li {
+				display: inline-block;
+				margin: 0;
+				padding: 0;
+				height: 64px;
+				line-height: 64px;
+				list-style-type: none;
+			
+				a {
+					display: inline-block;
+					padding: 0 20px;
+					height: 64px;
+					line-height: 64px;
+					text-decoration: none;
+					font-size: 14px;
+					font-weight: 600;
+					color: #565656;
+
+					&:hover {
+						color: #144264;
+						background: #e7e7e7
+					}
+
+					&.fomo-notifications-tab.active {
+						color: #144264;
+						border-bottom: 1px solid #4c596d;
+					}
+				}
+			}
+		}
+
+		/**
+		 * Section
+		 */
+		.postbox {
+			background: #fff;
+			color: #6e6e6e;
+			margin: 0 0 30px 0;
+			padding: 40px 30px 30px 30px;
+			font-size: 14px;
+			border-radius: 8px;
+			border: none;
+
+			&.no-padding {
+				padding: 0;
+			}
+		
+			h2 {
+				margin: 0 0 30px 0;
+				padding: 0 0 30px 0;
+				font-size: 24px;
+				font-weight: 600;
+				border-bottom: 1px solid #e3e3e3;
+				color: #3d3d3d;
 			}
 
-			input[type=text] {
-				width: 100%;
-				margin: 0 0 0 25px;
+			p {
+				font-size: 14px;
 			}
+		}
+
+		/**
+		 * Buttons
+		 */
+		p.submit {
+			margin-bottom: 20px;
+			padding: 0;
+		}
+		.button {
+			margin: 0 5px 0 0;
+			padding: 4px 12px;
+			font-size: 14px;
+			border-radius: 10px;
+
+			/* Required for WordPress 5.x styling */
+			height: auto;
+			text-shadow: none;
+			box-shadow: none;
+		}
+		.button-primary {
+			background: #1e1e1e;
+			border-color: #1e1e1e;
+			color: #fff;
+		}
+		.button-primary:hover {
+			background: #3d3d3d;
+			border-color: #3d3d3d;
+		}
+		.button-secondary {
+			background: #f0f0f0;
+			border-color: #f0f0f0;
+			color: #3d3d3d;
+		}
+		.button-secondary:hover {
+			background: #ddd;
+			border-color: #ddd;
 		}
 	}
 }
 
 /**
- * Settings UI
+ * Old Settings UI
  * - body.wpzinc is applied when we're viewing a Plugin Screen, allowing us
  * to define a full width <header>, and move the margin and padding from #wpcontent
  * and .wrap into a new div.wrap-inner which the Plugin outputs.
@@ -88,7 +220,7 @@ body.wpzinc {
  	}
 
 	.wrap {
-		margin: 0;
+		/* margin: 0; deprecated for new ui */
 
 		/**
 		 * Plugin Name

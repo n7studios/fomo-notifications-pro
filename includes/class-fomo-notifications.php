@@ -55,8 +55,6 @@ class Fomo_Notifications {
 	 */
 	public function initialize() {
 
-		$this->classes = new stdClass();
-
 		$this->initialize_admin();
 		$this->initialize_frontend();
 		$this->initialize_global();
