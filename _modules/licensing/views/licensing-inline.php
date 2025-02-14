@@ -56,7 +56,7 @@
 	<!-- Sidebar -->
 	<div id="postbox-container-1" class="postbox-container">
 		<!-- About -->
-		<div class="postbox">
+		<div class="postbox no-padding">
 			<h3 class="hndle"><?php esc_html_e( 'Version' ); // phpcs:ignore WordPress.WP.I18n ?></h3>
 
 			<div class="wpzinc-option">
@@ -65,7 +65,7 @@
 		</div>
 
 		<!-- Support -->
-		<div class="postbox">
+		<div class="postbox no-padding">
 			<h3 class="hndle"><span><?php esc_html_e( 'Help' ); // phpcs:ignore WordPress.WP.I18n ?></span></h3>
 
 			<div class="wpzinc-option">

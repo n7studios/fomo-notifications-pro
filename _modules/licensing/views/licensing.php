@@ -30,9 +30,7 @@
 	}
 	?>
 
-	<div class="wrap-inner">
-		<div id="poststuff">
-			<?php require_once 'licensing-inline.php'; ?>
-		</div>
-	</div><!-- /.wrap-inner -->
+	<div id="poststuff">
+		<?php require_once 'licensing-inline.php'; ?>
+	</div>
 </div><!-- /.wrap -->
