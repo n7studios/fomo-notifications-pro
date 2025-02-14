@@ -153,7 +153,7 @@ class Fomo_Notifications_Admin_Settings {
 			$documentation_url = $this->get_active_section_documentation_url( $active_section );
 			if ( $documentation_url !== false ) {
 				printf(
-					'<a href="%s" class="fomo-notifications-docs" target="_blank">%s</a>',
+					'<a href="%s" class="wpzinc-docs" target="_blank">%s</a>',
 					esc_attr( $documentation_url ),
 					esc_html__( 'Help', 'fomo-notifications' )
 				);
@@ -264,11 +264,11 @@ class Fomo_Notifications_Admin_Settings {
 	public function display_section_nav( $active_section ) {
 
 		?>
-		<ul class="fomo-notifications-tabs">
+		<h2 class="nav-tab-wrapper wpzinc-horizontal-tabbed-ui">
 			<?php
 			foreach ( $this->sections as $section ) {
 				printf(
-					'<li><a href="%s" class="fomo-notifications-tab %s">%s%s</a></li>',
+					'<a href="%s" class="nav-tab %s">%s</a>',
 					esc_url(
 						add_query_arg(
 							array(
@@ -278,13 +278,12 @@ class Fomo_Notifications_Admin_Settings {
 							admin_url( 'options-general.php' )
 						)
 					),
-					( $active_section === $section->name ? 'fomo-notifications-tab-active' : '' ),
-					esc_html( $section->tab_text ),
-					$section->is_beta ? $this->get_beta_tab() : '' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					( $active_section === $section->name ? 'nav-tab-active' : '' ),
+					esc_html( $section->tab_text )
 				);
 			}
 			?>
-		</ul>
+		</h2>
 		<?php
 
 	}
