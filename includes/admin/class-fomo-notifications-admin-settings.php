@@ -126,10 +126,10 @@ class Fomo_Notifications_Admin_Settings {
 
 		/**
 		 * Add settings menus and sub menus for the Plugin's settings.
-		 * 
-		 * @since 	1.0.0
-		 * 
-		 * @param 	string 	$minimum_capability 	Minimum capability required.
+		 *
+		 * @since   1.0.0
+		 *
+		 * @param   string  $minimum_capability     Minimum capability required.
 		 */
 		do_action( 'fomo_notifications_admin_settings_add_settings_page', $minimum_capability );
 
@@ -145,12 +145,12 @@ class Fomo_Notifications_Admin_Settings {
 		$active_section = $this->get_active_section();
 		?>
 
-		<header style="--wpzinc-logo: url('<?php echo esc_attr( FOMO_NOTIFICATIONS_PLUGIN_URL ); ?>assets/images/icons/logo-dark.svg')">
+		<header style="--wpzinc-logo: url('<?php echo esc_attr( FOMO_NOTIFICATIONS_PLUGIN_URL ); // @phpstan-ignore-line ?>assets/images/icons/logo-dark.svg')">
 			<h1>
-				<?php echo esc_html_e( 'FOMO Notifications Pro', 'page-generator-pro' ); ?>
+				<?php echo esc_html_e( 'FOMO Notifications Pro', 'fomo-notifications' ); ?>
 
 				<span>
-					<?php esc_html_e( 'Settings', 'page-generator-pro' ); ?>
+					<?php esc_html_e( 'Settings', 'fomo-notifications' ); ?>
 				</span>
 			</h1>
 		</header>
@@ -281,27 +281,6 @@ class Fomo_Notifications_Admin_Settings {
 			?>
 		</h2>
 		<?php
-
-	}
-
-	/**
-	 * Returns a 'beta' tab wrapped in a span, using wp_kses to ensure only permitted
-	 * HTML elements are included in the output.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @return  string
-	 */
-	private function get_beta_tab() {
-
-		return wp_kses(
-			'<span class="fomo-notifications-beta-label">' . esc_html__( 'Beta', 'fomo-notifications' ) . '</span>',
-			array(
-				'span' => array(
-					'class' => array(),
-				),
-			)
-		);
 
 	}
 

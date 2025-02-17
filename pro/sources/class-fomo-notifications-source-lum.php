@@ -12,7 +12,7 @@
  * @package Fomo_Notifications_Pro
  * @author WP Zinc
  */
-class Fomo_Notifications_Source_LUM {
+class Fomo_Notifications_Source_Lum {
 
 	use Fomo_Notifications_Admin_Section_Fields_Trait;
 	use Fomo_Notifications_Source_Trait;
@@ -58,7 +58,7 @@ class Fomo_Notifications_Source_LUM {
 		return array_merge(
 			$fields,
 			array(
-				$this->source_name . '_order_days'   => array(
+				$this->source_name . '_order_days' => array(
 					'title'   => __( 'Maximum Order Age', 'fomo-notifications' ),
 					'section' => $this->source_name,
 					'props'   => array(
@@ -68,7 +68,7 @@ class Fomo_Notifications_Source_LUM {
 						'max'         => 9999,
 						'step'        => 1,
 						'unit'        => __( 'days', 'fomo-notifications' ),
-						'description' => esc_html__( 'The maximum age of Orders to include.', 'fomo-notifications' ),
+						'description' => esc_html__( 'The maximum age of purchases to include.', 'fomo-notifications' ),
 					),
 				),
 			)
@@ -89,7 +89,7 @@ class Fomo_Notifications_Source_LUM {
 		return array_merge(
 			$defaults,
 			array(
-				$this->source_name . '_order_age'    => 90,
+				$this->source_name . '_order_age' => 90,
 			)
 		);
 
@@ -106,59 +106,6 @@ class Fomo_Notifications_Source_LUM {
 
 		// @TODO.
 		return array();
-
-		// Define the class that reads/writes settings.
-		$settings = new Fomo_Notifications_Settings();
-
-		// Get Orders.
-		$order_ids = $this->get_order_ids(
-			$settings->get_by_key( $this->source_name . '_order_status' ),
-			$settings->get_by_key( $this->source_name . '_order_age' ),
-			$settings->limit()
-		);
-
-		// Bail if no Orders exist.
-		if ( ! $order_ids ) {
-			return array();
-		}
-
-		// Build notifications from Orders.
-		$notifications = array();
-		foreach ( $order_ids as $order_id ) {
-			// Get order.
-			$order = wc_get_order( $order_id );
-
-			// Get product purchased.
-			// 2 or more products will result in the first retuned with ' & X products'.
-			$product_purchased = $this->get_product_purchased( $order );
-
-			// If product purchased is false, skip.
-			if ( ! $product_purchased ) {
-				continue;
-			}
-
-			// Build notification.
-			$notifications[] = array(
-				'image'    => $product_purchased['image'],
-				'name'     => sprintf(
-					'%s %s',
-					$order->get_billing_first_name(),
-					$order->get_billing_last_name()
-				),
-				'location' => sprintf(
-					'%s, %s',
-					$order->get_billing_city(),
-					$order->get_billing_country()
-				),
-				'action'   => __( 'purchased', 'fomo-notifications' ),
-				'title'    => $product_purchased['title'],
-				'date'     => $order->get_date_created()->getTimestamp(),
-				'url'      => $product_purchased['url'],
-			);
-		}
-
-		// Return array of notifications.
-		return $notifications;
 
 	}
 

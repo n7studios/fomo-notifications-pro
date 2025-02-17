@@ -186,9 +186,11 @@ class Fomo_Notifications_Source_Woocommerce {
 			return false;
 		}
 
+		$product_purchased = array();
+
 		// Get first product.
 		foreach ( $order->get_items() as $item_key => $item ) {
-			$product           = $item->get_product();
+			$product           = $item->get_product(); // @phpstan-ignore-line
 			$product_purchased = array(
 				'image' => ( $product ? wp_get_attachment_image_url( $product->get_image_id(), 'thumbnail' ) : false ),
 				'title' => $item->get_name(),
