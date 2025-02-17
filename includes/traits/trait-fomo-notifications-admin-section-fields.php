@@ -146,7 +146,7 @@ trait Fomo_Notifications_Admin_Section_Fields_Trait {
 
 		// Build opening <select> tag.
 		$html = sprintf(
-			'<select id="%s" name="%s[%s]" size="1" multiple>',
+			'<select id="%s" name="%s[%s][]" size="1" multiple>',
 			esc_attr( $args['name'] ),
 			esc_attr( $this->settings_key ),
 			esc_attr( $args['name'] )

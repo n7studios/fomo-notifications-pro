@@ -142,7 +142,7 @@ class Fomo_Notifications_Pro {
 		}
 
 		// Licensing.
-		add_menu_page( $this->plugin->displayName, $this->plugin->displayName, $minimum_capability, $this->plugin->name, array( $this->licensing, 'licensing_screen' ), $this->plugin->url . 'resources/backend/images/icons/logo-light.svg' );
+		add_menu_page( $this->plugin->displayName, $this->plugin->displayName, $minimum_capability, $this->plugin->name, array( $this->licensing, 'licensing_screen' ), $this->plugin->url . 'assets/images/icons/logo-light.svg' );
 		add_submenu_page( $this->plugin->name, __( 'Licensing', 'wp-to-social-pro' ), __( 'Licensing', 'wp-to-social-pro' ), $minimum_capability, $this->plugin->name, array( $this->licensing, 'licensing_screen' ) );
 
 		// Bail if the product is not licensed.
@@ -240,11 +240,6 @@ class Fomo_Notifications_Pro {
 			return;
 		}
 
-		// Bail if not licensed.
-		if ( ! $this->licensing->check_license_key_valid() ) {
-			return;
-		}
-
 		$this->classes['output'] = new Fomo_Notifications_Output();
 
 		/**
@@ -264,14 +259,18 @@ class Fomo_Notifications_Pro {
 	 */
 	private function initialize_global() {
 
+		$this->classes['woocommerce'] = new Fomo_Notifications_Source_Woocommerce();
+
 		// Bail if not licensed.
+		/*
 		if ( ! $this->licensing->check_license_key_valid() ) {
 			return;
 		}
+		*/
 
+		// Load licensed integrations.
 		$this->classes['lum'] = new Fomo_Notifications_Source_Lum();
-		$this->classes['woocommerce'] = new Fomo_Notifications_Source_Woocommerce();
-
+		
 		/**
 		 * Initialize integration classes for the frontend web site.
 		 *

@@ -43,8 +43,31 @@ class Fomo_Notifications {
 		// Defer loading of Plugin Classes.
 		add_action( 'init', array( $this, 'initialize' ), 1 );
 
+		// Admin Menus.
+		add_action( 'fomo_notifications_admin_settings_add_settings_page', array( $this, 'admin_menu' ) );
+
 		// Localization.
 		add_action( 'init', array( $this, 'load_language_files' ) );
+
+	}
+
+	/**
+	 * Register menus and submenus.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @param   string $minimum_capability  Minimum capability required for access.
+	 */
+	public function admin_menu( $minimum_capability ) {
+
+		add_menu_page(
+			__( 'FOMO Notifications', 'fomo-notifications' ),
+			__( 'FOMO Notifications', 'fomo-notifications' ),
+			$minimum_capability,
+			'fomo-notifications-settings',
+			array( $this->classes['admin_settings'], 'display_settings_page' ),
+			FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/images/icons/logo-light.svg'
+		);
 
 	}
 
@@ -74,20 +97,6 @@ class Fomo_Notifications {
 		}
 
 		$this->classes['admin_settings'] = new Fomo_Notifications_Admin_Settings();
-
-		// Register admin menu.
-		add_action( 'fomo_notifications_admin_settings_add_settings_page', function() {
-
-			add_menu_page(
-				__( 'FOMO Notifications', 'fomo-notifications' ),
-				__( 'FOMO Notifications', 'fomo-notifications' ),
-				'manage_options',
-				'fomo-notifications-settings',
-				array( $this->classes['admin_settings'], 'display_settings_page' ),
-				FOMO_NOTIFICATIONS_PLUGIN_URL . 'resources/backend/images/icons/logo-light.svg'
-			);
-
-		} );
 
 		/**
 		 * Initialize integration classes for the WordPress Administration interface.

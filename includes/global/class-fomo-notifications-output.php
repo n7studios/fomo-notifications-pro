@@ -44,13 +44,13 @@ class Fomo_Notifications_Output {
 		// Enqueue CSS and JS.
 		wp_enqueue_style(
 			'fomo-notifications-style',
-			FOMO_NOTIFICATIONS_PLUGIN_URL . 'resources/frontend/css/notification.css',
+			FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/css/notification.css',
 			array(),
 			FOMO_NOTIFICATIONS_PLUGIN_VERSION
 		);
 		wp_enqueue_script(
 			'fomo-notifications-script',
-			FOMO_NOTIFICATIONS_PLUGIN_URL . 'resources/frontend/js/notification.js',
+			FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/js/notification.js',
 			array( 'jquery' ),
 			'1.0.0',
 			true

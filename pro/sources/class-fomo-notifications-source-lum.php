@@ -40,7 +40,7 @@ class Fomo_Notifications_Source_LUM {
 		add_filter( 'fomo_notifications_settings_get_defaults', array( $this, 'get_defaults' ) );
 
 		// Frontend.
-		add_filter( 'fomo_notifications_output_get_notifications_woocommerce', array( $this, 'get_notifications' ) );
+		add_filter( 'fomo_notifications_output_get_notifications_' . $this->source_name, array( $this, 'get_notifications' ) );
 
 	}
 
@@ -104,6 +104,7 @@ class Fomo_Notifications_Source_LUM {
 	 */
 	public function get_notifications() {
 
+		// @TODO.
 		return array();
 
 		// Define the class that reads/writes settings.
