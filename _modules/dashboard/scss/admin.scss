@@ -697,7 +697,6 @@ div.wpzinc-vertical-tabbed-ui {
 	div.wpzinc-nav-tabs-content {
 		grid-area: content;
 		margin: 0;
-		/* padding: 20px; */
 		background: #fff;
 	    border-left: 1px solid $wpzinc-border-color;
 
@@ -705,10 +704,6 @@ div.wpzinc-vertical-tabbed-ui {
 	    	content: "";
     		display: table;
     		clear: both;
-	    }
-
-	    &.no-padding {
-	    	padding: 0;
 	    }
 
 	    div.postbox {
