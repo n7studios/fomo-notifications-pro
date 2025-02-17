@@ -91,8 +91,16 @@ class Fomo_Notifications_Admin_Section_General {
 	 */
 	public function register_fields() {
 
-		// Fetch registered notification sources.
-		$sources = apply_filters( 'fomo_notifications_get_sources', array() );
+		$sources = array();
+
+		/**
+		 * Define registered notification sources.
+		 *
+		 * @since   1.0.0
+		 *
+		 * @param   array   $sources    Sources.
+		 */
+		$sources = apply_filters( 'fomo_notifications_get_sources', $sources );
 
 		// Define fields.
 		$fields = array(

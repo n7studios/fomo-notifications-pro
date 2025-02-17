@@ -78,7 +78,7 @@ class Fomo_Notifications_Source_Woocommerce {
 						'type'        => 'multiple_select',
 						'value'       => $settings->get_by_key( $this->source_name . '_order_status' ),
 						'options'     => wc_get_order_statuses(),
-						'description' => esc_html__( 'Only include orders with the defined statuses.', 'fomo-notifications' ),
+						'description' => esc_html__( 'Only include orders with the defined statuses. Ctrl / Cmd + click statuses to include/exclude.', 'fomo-notifications' ),
 					),
 				),
 			)

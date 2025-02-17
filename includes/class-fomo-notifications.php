@@ -24,6 +24,24 @@ class Fomo_Notifications {
 	private static $instance;
 
 	/**
+	 * Holds the plugin information object.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     object
+	 */
+	public $plugin;
+
+	/**
+	 * Holds the dashboard class object.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     object
+	 */
+	public $dashboard;
+
+	/**
 	 * Holds singleton initialized classes that include
 	 * action and filter hooks.
 	 *
@@ -39,6 +57,26 @@ class Fomo_Notifications {
 	 * @since   1.0.0
 	 */
 	public function __construct() {
+
+		// Plugin Details.
+		$this->plugin                    = new stdClass();
+		$this->plugin->name              = 'fomo-notifications';
+		$this->plugin->displayName       = 'FOMO Notifications';
+		$this->plugin->author_name       = 'WP Zinc';
+		$this->plugin->version           = FOMO_NOTIFICATIONS_PLUGIN_VERSION;
+		$this->plugin->buildDate         = FOMO_NOTIFICATIONS_PLUGIN_BUILD_DATE;
+		$this->plugin->folder            = FOMO_NOTIFICATIONS_PLUGIN_PATH;
+		$this->plugin->url               = FOMO_NOTIFICATIONS_PLUGIN_URL;
+		$this->plugin->documentation_url = 'https://www.wpzinc.com/documentation/fomo-notifications';
+		$this->plugin->support_url       = 'https://www.wpzinc.com/support';
+		$this->plugin->logo              = FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/images/icons/logo-dark.svg';
+		$this->plugin->review_name       = false;
+
+		// Dashboard Submodule.
+		if ( ! class_exists( 'WPZincDashboardWidget' ) ) {
+			require_once $this->plugin->folder . '_modules/dashboard/class-wpzincdashboardwidget.php';
+		}
+		$this->dashboard = new WPZincDashboardWidget( $this->plugin );
 
 		// Defer loading of Plugin Classes.
 		add_action( 'init', array( $this, 'initialize' ), 1 );
