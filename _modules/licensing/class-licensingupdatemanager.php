@@ -290,8 +290,6 @@ class LicensingUpdateManager {
 	 */
 	public function check_license_key_valid( $force = false ) {
 
-		return true;
-
 		// If no license key exists, license is not valid.
 		if ( ! $this->check_license_key_exists() ) {
 			$this->cache_set(
@@ -742,7 +740,7 @@ class LicensingUpdateManager {
 
 	}
 
-/**
+	/**
 	 * Determines whether the logged in WordPress User has access to a particular
 	 * feature, by:
 	 * - checking if the license key has access control options,

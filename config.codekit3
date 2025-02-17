@@ -17,6 +17,18 @@
       "oAP" : "\/_modules\/dashboard\/class-wpzincdashboardwidget.php",
       "oF" : 0
     },
+    "\/_modules\/dashboard\/css\/_custom-post-tax-types.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/_modules\/dashboard\/css\/_custom-post-tax-types-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
     "\/_modules\/dashboard\/css\/admin.css" : {
       "aP" : 1,
       "bl" : 0,
@@ -3399,6 +3411,21 @@
       "sC" : 3,
       "tS" : 0
     },
+    "\/_modules\/dashboard\/scss\/_custom-post-tax-types.scss" : {
+      "aP" : 0,
+      "bl" : 0,
+      "co" : 0,
+      "dP" : 10,
+      "ec" : 1,
+      "ft" : 4,
+      "ma" : 0,
+      "oA" : 1,
+      "oAP" : "\/_modules\/dashboard\/scss\/_custom-post-tax-types.css",
+      "oF" : 0,
+      "oS" : 0,
+      "pg" : 0,
+      "sct" : 0
+    },
     "\/_modules\/dashboard\/scss\/_responsive.scss" : {
       "aP" : 0,
       "bl" : 0,
@@ -3546,14 +3573,6 @@
       "oAP" : "\/_modules\/licensing\/class-licensingupdatemanager.php",
       "oF" : 0
     },
-    "\/_modules\/licensing\/views\/licensing-inline.php" : {
-      "cB" : 0,
-      "ft" : 8192,
-      "hM" : 0,
-      "oA" : 0,
-      "oAP" : "\/_modules\/licensing\/views\/licensing-inline.php",
-      "oF" : 0
-    },
     "\/_modules\/licensing\/views\/licensing.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -3577,6 +3596,61 @@
       "oA" : 0,
       "oAP" : "\/.gitignore",
       "oF" : 0
+    },
+    "\/assets\/css\/notification.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/assets\/css\/notification-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/assets\/css\/settings.css" : {
+      "aP" : 1,
+      "bl" : 0,
+      "ci" : 0,
+      "co" : 0,
+      "ft" : 16,
+      "ma" : 0,
+      "oA" : 0,
+      "oAP" : "\/assets\/css\/settings-min.css",
+      "oF" : 0,
+      "pg" : 0
+    },
+    "\/assets\/images\/icons\/logo-dark.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/assets\/images\/icons\/logo-dark.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
+    "\/assets\/images\/icons\/logo-light.svg" : {
+      "ft" : 2097152,
+      "miP" : 0,
+      "oA" : 2,
+      "oAP" : "\/assets\/images\/icons\/logo-light.svg",
+      "oF" : 0,
+      "opt" : 0,
+      "plM" : 52780316221407,
+      "prP" : 0
+    },
+    "\/assets\/js\/notification.js" : {
+      "bF" : 0,
+      "ft" : 64,
+      "ma" : 0,
+      "mi" : 1,
+      "oA" : 0,
+      "oAP" : "\/assets\/js\/notification-min.js",
+      "oF" : 0,
+      "sC" : 3,
+      "tS" : 0
     },
     "\/composer.json" : {
       "ft" : 524288,
@@ -3725,61 +3799,6 @@
       "oAP" : "\/readme.txt",
       "oF" : 0
     },
-    "\/resources\/backend\/css\/settings.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/resources\/backend\/css\/settings-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/resources\/backend\/images\/icons\/logo-dark.svg" : {
-      "ft" : 2097152,
-      "miP" : 0,
-      "oA" : 2,
-      "oAP" : "\/resources\/backend\/images\/icons\/logo-dark.svg",
-      "oF" : 0,
-      "opt" : 0,
-      "plM" : 52780316221407,
-      "prP" : 0
-    },
-    "\/resources\/backend\/images\/icons\/logo-light.svg" : {
-      "ft" : 2097152,
-      "miP" : 0,
-      "oA" : 2,
-      "oAP" : "\/resources\/backend\/images\/icons\/logo-light.svg",
-      "oF" : 0,
-      "opt" : 0,
-      "plM" : 52780316221407,
-      "prP" : 0
-    },
-    "\/resources\/frontend\/css\/notification.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/resources\/frontend\/css\/notification-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
-    "\/resources\/frontend\/js\/notification.js" : {
-      "bF" : 0,
-      "ft" : 64,
-      "ma" : 0,
-      "mi" : 1,
-      "oA" : 0,
-      "oAP" : "\/resources\/frontend\/js\/notification-min.js",
-      "oF" : 0,
-      "sC" : 3,
-      "tS" : 0
-    },
     "\/views\/frontend\/notification.php" : {
       "cB" : 0,
       "ft" : 8192,
@@ -3797,8 +3816,8 @@
   },
   "projectAttributes" : {
     "creationDate" : 761132041.93795002,
-    "displayValue" : "fomo-notifications-pro",
-    "displayValueWasSetByUser" : 0,
+    "displayValue" : "WP Zinc: FOMO Notifications Pro",
+    "displayValueWasSetByUser" : 1,
     "iconImageName" : "brackets-forest",
     "iconImageWasSetByUser" : 0
   },

@@ -82,7 +82,7 @@ class Fomo_Notifications_Admin_Settings {
 	public function enqueue_styles( $hook ) {
 
 		// Always enqueue Settings CSS, as this is used for the UI across all settings sections and the admin menu icon.
-		wp_enqueue_style( 'fomo-notifications-admin-settings', FOMO_NOTIFICATIONS_PLUGIN_URL . 'resources/backend/css/settings.css', array(), FOMO_NOTIFICATIONS_PLUGIN_VERSION );
+		wp_enqueue_style( 'fomo-notifications-admin-settings', FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/css/settings.css', array(), FOMO_NOTIFICATIONS_PLUGIN_VERSION );
 
 		// Bail if we are not on the Settings screen.
 		if ( $hook !== 'toplevel_page_' . self::SETTINGS_PAGE_SLUG ) {
@@ -145,20 +145,14 @@ class Fomo_Notifications_Admin_Settings {
 		$active_section = $this->get_active_section();
 		?>
 
-		<header>
-			<h1><?php esc_html_e( 'FOMO Notifications', 'fomo-notifications' ); ?></h1>
+		<header style="--wpzinc-logo: url('<?php echo esc_attr( FOMO_NOTIFICATIONS_PLUGIN_URL ); ?>assets/images/icons/logo-dark.svg')">
+			<h1>
+				<?php echo esc_html_e( 'FOMO Notifications Pro', 'page-generator-pro' ); ?>
 
-			<?php
-			// Output Help link tab, if it exists.
-			$documentation_url = $this->get_active_section_documentation_url( $active_section );
-			if ( $documentation_url !== false ) {
-				printf(
-					'<a href="%s" class="wpzinc-docs" target="_blank">%s</a>',
-					esc_attr( $documentation_url ),
-					esc_html__( 'Help', 'fomo-notifications' )
-				);
-			}
-			?>
+				<span>
+					<?php esc_html_e( 'Settings', 'page-generator-pro' ); ?>
+				</span>
+			</h1>
 		</header>
 
 		<?php
@@ -170,33 +164,35 @@ class Fomo_Notifications_Admin_Settings {
 		<hr class="wp-header-end">
 
 		<div class="wrap">
-			<?php
-			$this->display_section_nav( $active_section );
-			?>
-
-			<form method="post" action="options.php" enctype="multipart/form-data">
+			<div class="wrap-inner">
 				<?php
-				// Iterate through sections to find the active section to render.
-				if ( isset( $this->sections[ $active_section ] ) ) {
-					$this->sections[ $active_section ]->render();
-				}
+				$this->display_section_nav( $active_section );
 				?>
-			</form>
 
-			<p class="description">
-				<?php
-				// Output Help link, if it exists.
-				$documentation_url = $this->get_active_section_documentation_url( $active_section );
-				if ( $documentation_url !== false ) {
-					printf(
-						'%s <a href="%s" target="_blank">%s</a>',
-						esc_html__( 'If you need help setting up the plugin please refer to the', 'fomo-notifications' ),
-						esc_attr( $documentation_url ),
-						esc_html__( 'plugin documentation', 'fomo-notifications' )
-					);
-				}
-				?>
-			</p>
+				<form method="post" action="options.php" enctype="multipart/form-data" class="wpzinc-settings-ui">
+					<?php
+					// Iterate through sections to find the active section to render.
+					if ( isset( $this->sections[ $active_section ] ) ) {
+						$this->sections[ $active_section ]->render();
+					}
+					?>
+				</form>
+
+				<p class="description">
+					<?php
+					// Output Help link, if it exists.
+					$documentation_url = $this->get_active_section_documentation_url( $active_section );
+					if ( $documentation_url !== false ) {
+						printf(
+							'%s <a href="%s" target="_blank">%s</a>',
+							esc_html__( 'If you need help setting up the plugin please refer to the', 'fomo-notifications' ),
+							esc_attr( $documentation_url ),
+							esc_html__( 'plugin documentation', 'fomo-notifications' )
+						);
+					}
+					?>
+				</p>
+			</div>
 		</div>
 		<?php
 
