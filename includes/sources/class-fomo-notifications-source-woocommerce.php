@@ -55,6 +55,11 @@ class Fomo_Notifications_Source_Woocommerce {
 	 */
 	public function register_fields( $fields, $settings ) {
 
+		// Bail if WooCommerce isn't active.
+		if ( ! function_exists( 'wc_get_order_statuses' ) ) {
+			return $fields;
+		}
+
 		return array_merge(
 			$fields,
 			array(
