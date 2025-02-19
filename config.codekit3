@@ -3441,18 +3441,6 @@
       "pg" : 0,
       "sct" : 0
     },
-    "\/_modules\/dashboard\/scss\/admin.css" : {
-      "aP" : 1,
-      "bl" : 0,
-      "ci" : 0,
-      "co" : 0,
-      "ft" : 16,
-      "ma" : 0,
-      "oA" : 0,
-      "oAP" : "\/_modules\/dashboard\/scss\/admin-min.css",
-      "oF" : 0,
-      "pg" : 0
-    },
     "\/_modules\/dashboard\/scss\/admin.scss" : {
       "aP" : 0,
       "bl" : 0,
