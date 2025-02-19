@@ -69,7 +69,7 @@ class Fomo_Notifications_Pro {
 
 		// Plugin Details.
 		$this->plugin                    = new stdClass();
-		$this->plugin->name              = 'fomo-notifications';
+		$this->plugin->name              = 'fomo-notifications-pro';
 		$this->plugin->displayName       = 'FOMO Notifications Pro';
 		$this->plugin->author_name       = 'WP Zinc';
 		$this->plugin->version           = FOMO_NOTIFICATIONS_PLUGIN_VERSION;
@@ -157,12 +157,12 @@ class Fomo_Notifications_Pro {
 
 		// Import & Export.
 		if ( $this->licensing->can_access( 'show_menu_import_export' ) ) {
-			do_action( 'fomo_notifications_admin_menu_import_export' );
+			do_action( 'fomo_notifications_pro_admin_menu_import_export' );
 		}
 
 		// Support.
 		if ( $this->licensing->can_access( 'show_menu_support' ) ) {
-			do_action( 'fomo_notifications_admin_menu_support' );
+			do_action( 'fomo_notifications_pro_admin_menu_support' );
 		}
 
 	}

@@ -64,11 +64,14 @@ body.wpzinc {
 			 */
 			> header {
 				height: 98px;
+				margin: 0 0 10px 0;
 				padding: 0 20px;
-				background: var(--wpzinc-logo) 30px 50% no-repeat;
+				background-image: var(--wpzinc-logo);
 				background-size: 40px auto;
+				background-position: 30px 50%;
+				background-repeat: no-repeat;
 				background-color: #ffffff;
-			
+
 				h1 {
 					float: left;
 					margin: 0;
@@ -129,18 +132,11 @@ body.wpzinc {
 				 * Settings screens
 				 */
 				.wrap-inner {
-					margin: 10px 20px 0 20px;
+					margin: 0 20px;
 
 					form#posts-filter {
 						margin: 0;
 					}
-				}
-
-				/**
-				 * Notices
-				 */
-				.notice {
-					margin-top: 0;
 				}
 
 				/**
@@ -418,7 +414,7 @@ ul.wpzinc-tinymce-autocomplete {
  * - Extends WordPress' .nav-tab-wrapper class
  */
 h2.wpzinc-horizontal-tabbed-ui.nav-tab-wrapper {
-	margin: 25px 0;
+	margin: 0 0 20px 0;
 	padding: 0;
 	border-bottom: 1px solid #d0d0cf;
 
