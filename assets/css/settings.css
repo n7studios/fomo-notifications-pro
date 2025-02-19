@@ -2,24 +2,33 @@
  * Light Menu Icon
  */
 li.toplevel_page_fomo-notifications-settings a div.wp-menu-image,
-li.toplevel_page_fomo-notifications a div.wp-menu-image {
+li.toplevel_page_fomo-notifications a div.wp-menu-image,
+li.toplevel_page_fomo-notifications-pro-settings a div.wp-menu-image,
+li.toplevel_page_fomo-notifications-pro a div.wp-menu-image
+{
 	background: url(../images/icons/logo-light.svg) center no-repeat;
 	background-size: 20px 20px;
 }
 li.toplevel_page_fomo-notifications-settings a div.wp-menu-image img,
-li.toplevel_page_fomo-notifications a div.wp-menu-image img {
+li.toplevel_page_fomo-notifications a div.wp-menu-image img,
+li.toplevel_page_fomo-notifications-pro-settings a div.wp-menu-image img,
+li.toplevel_page_fomo-notifications-pro a div.wp-menu-image img {
 	display: none;
-}		
+}
 
 /**
 * Dark Menu Icon
 */
 body.admin-color-light li.toplevel_page_fomo-notifications-settings a div.wp-menu-image,
-body.admin-color-light li.toplevel_page_fomo-notifications a div.wp-menu-image {
+body.admin-color-light li.toplevel_page_fomo-notifications a div.wp-menu-image,
+body.admin-color-light li.toplevel_page_fomo-notifications-pro-settings a div.wp-menu-image,
+body.admin-color-light li.toplevel_page_fomo-notifications-pro a div.wp-menu-image {
 	background: url(../images/icons/logo-dark.svg) center no-repeat;
 	background-size: 16px 16px;
 }
 body.admin-color-light li.toplevel_page_fomo-notifications-settings a div.wp-menu-image img,
-body.admin-color-light li.toplevel_page_fomo-notifications a div.wp-menu-image img {
+body.admin-color-light li.toplevel_page_fomo-notifications a div.wp-menu-image img,
+body.admin-color-light li.toplevel_page_fomo-notifications-pro-settings a div.wp-menu-image img,
+body.admin-color-light li.toplevel_page_fomo-notifications-pro a div.wp-menu-image img {
 	display: none;
 }
