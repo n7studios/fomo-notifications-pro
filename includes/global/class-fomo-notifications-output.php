@@ -33,6 +33,9 @@ class Fomo_Notifications_Output {
 	 */
 	public function enqueue_scripts() {
 
+		// @TODO Detect if home page, tax page etc etc etc.
+		global $wp, $post;
+
 		// Get notifications.
 		$notifications = $this->get_notifications();
 
@@ -87,21 +90,43 @@ class Fomo_Notifications_Output {
 	 */
 	private function get_notifications() {
 
-		// Initialize settings class.
-		$settings = new Fomo_Notifications_Settings();
+		// Iterate through all published notifications.
+		$all_possible_notification_ids = new WP_Query(
+			array(
+				'post_type'              => 'fomo-notification',
+				'post_status'            => 'publish',
 
-		// Define source and notifications.
-		$source        = $settings->source();
+				// For performance, just return the Post ID and don't update meta or term caches.
+				'fields'                 => 'ids',
+				'cache_results'          => false,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+			)
+		);
+
+		if ( empty( $all_possible_notification_ids->posts ) ) {
+			return array();
+		}
+
+		// Iterate through notifications.
 		$notifications = array();
+		foreach ( $all_possible_notification_ids->posts as $notification_id ) {
+			// Get settings.
+			$settings = new Fomo_Notifications_Notification_Settings( $notification_id );
 
-		/**
-		 * Define the notifications to output for the source.
-		 *
-		 * @since   1.0.0
-		 *
-		 * @param   array   $notifications  Notifications.
-		 */
-		$notifications = apply_filters( 'fomo_notifications_output_get_notifications_' . $source, $notifications );
+			// Get source.
+			$source = $settings->get_source();
+
+			/**
+			 * Define the notifications to output from this template
+			 * for its source.
+			 *
+			 * @since   1.0.0
+			 *
+			 * @param   array   $notifications  Notifications.
+			 */
+			$notifications = apply_filters( 'fomo_notifications_output_get_notifications_' . $source, $notifications, $settings );
+		}
 
 		// Update the date of each notification to a relative time.
 		foreach ( $notifications as $index => $notification ) {

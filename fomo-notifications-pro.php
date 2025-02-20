@@ -32,13 +32,24 @@ define( 'FOMO_NOTIFICATIONS_PLUGIN_FILE', plugin_basename( __FILE__ ) );
 define( 'FOMO_NOTIFICATIONS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 define( 'FOMO_NOTIFICATIONS_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
+// Traits.
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/traits/trait-fomo-notifications-admin-section.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/traits/trait-fomo-notifications-admin-section-fields.php';
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/traits/trait-fomo-notifications-settings.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/traits/trait-fomo-notifications-source.php';
+
+// Admin.
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/admin/class-fomo-notifications-admin-notification-ui.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/admin/class-fomo-notifications-admin-section-general.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/admin/class-fomo-notifications-admin-settings.php';
+
+// Global.
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-notification-settings.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-output.php';
-require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-settings.php';
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-post-type.php';
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-plugin-settings.php';
+
+// Sources.
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/sources/class-fomo-notifications-source-woocommerce.php';
 
 // Pro.

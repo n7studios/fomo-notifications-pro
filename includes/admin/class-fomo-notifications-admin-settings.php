@@ -147,7 +147,7 @@ class Fomo_Notifications_Admin_Settings {
 
 		<header style="--wpzinc-logo: url('<?php echo esc_attr( FOMO_NOTIFICATIONS_PLUGIN_URL ); // @phpstan-ignore-line ?>assets/images/icons/logo-dark.svg')">
 			<h1>
-				<?php echo esc_html_e( 'FOMO Notifications Pro', 'fomo-notifications' ); ?>
+				<?php echo esc_html_e( 'FOMO Notifications', 'fomo-notifications' ); ?>
 
 				<span>
 					<?php esc_html_e( 'Settings', 'fomo-notifications' ); ?>
@@ -231,7 +231,7 @@ class Fomo_Notifications_Admin_Settings {
 				array(
 					'page' => self::SETTINGS_PAGE_SLUG,
 				),
-				admin_url( 'options-general.php' )
+				admin_url( 'admin.php' )
 			),
 			__( 'Settings', 'fomo-notifications' )
 		);
@@ -271,7 +271,7 @@ class Fomo_Notifications_Admin_Settings {
 								'page' => self::SETTINGS_PAGE_SLUG,
 								'tab'  => $section->name,
 							),
-							admin_url( 'options-general.php' )
+							admin_url( 'admin.php' )
 						)
 					),
 					( $active_section === $section->name ? 'nav-tab-active' : '' ),

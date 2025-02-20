@@ -69,15 +69,6 @@ trait Fomo_Notifications_Admin_Section_Trait {
 	public $settings_sections = array();
 
 	/**
-	 * Holds whether this settings section is for beta functionality.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var     bool
-	 */
-	public $is_beta = false;
-
-	/**
 	 * Holds whether the save button should be disabled e.g. there are no
 	 * settings on screen to save.
 	 *
@@ -103,13 +94,13 @@ trait Fomo_Notifications_Admin_Section_Trait {
 		if ( ! array_key_exists( 'page', $_REQUEST ) ) {
 			return false;
 		}
-		if ( sanitize_text_field( $_REQUEST['page'] ) !== '_fomo_notifications_settings' ) {
+		if ( sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) !== '_fomo_notifications_settings' ) {
 			return false;
 		}
 
 		// Define current settings tab.
 		// General screen won't always be loaded with a `tab` parameter.
-		$current_tab = ( array_key_exists( 'tab', $_REQUEST ) ? sanitize_text_field( $_REQUEST['tab'] ) : 'general' );
+		$current_tab = ( array_key_exists( 'tab', $_REQUEST ) ? sanitize_text_field( wp_unslash( $_REQUEST['tab'] ) ) : 'general' );
 
 		// Return whether the request is for the current settings tab.
 		return ( $current_tab === $tab );
@@ -198,7 +189,7 @@ trait Fomo_Notifications_Admin_Section_Trait {
 	 */
 	public function get_render_container_start( $css_class = '' ) {
 
-		return '<div class="metabox-holder ' . sanitize_html_class( $css_class ) . '"><div class="postbox ' . sanitize_html_class( $this->is_beta ? 'fomo-notifications-beta' : '' ) . '">';
+		return '<div class="metabox-holder ' . sanitize_html_class( $css_class ) . '"><div class="postbox">';
 
 	}
 

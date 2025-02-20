@@ -1,0 +1,50 @@
+/**
+ * Menu Icon
+ */
+li.toplevel_page_fomo-notifications-settings a div.wp-menu-image img,
+li.toplevel_page_fomo-notifications a div.wp-menu-image img,
+li.toplevel_page_fomo-notifications-pro-settings a div.wp-menu-image img,
+li.toplevel_page_fomo-notifications-pro a div.wp-menu-image img {
+	width: 20px;
+	height: 20px;
+}
+
+/**
+* Notifications
+*/
+body.post-type-fomo-notification {
+	/**
+	 * Heading: Plugin name and icon
+	 * Dashboard submodule cannot target a CPT so we manually do it here
+	 */
+	#wpcontent {
+		#wpbody-content {
+			.wrap {
+				.wp-heading-inline {
+					color: #6e6e6e;
+					background-image: var(--wpzinc-logo, url('../images/icons/logo-dark.svg'));
+					background-size: 40px auto;
+					background-position: 30px 50%;
+					background-repeat: no-repeat;
+					background-color: #ffffff;
+					box-sizing: border-box;
+
+					&::before {
+					    content: var(--fomo-notifications-plugin-display-name, 'FOMO Notifications');
+					    color: #3d3d3d;
+					}
+				}
+			}
+		}
+	}
+
+	#poststuff {
+		/**
+		 * Metabox Padding
+		 */
+		div.inside {
+			margin: 0;
+			padding: 0;
+		}
+	}
+}

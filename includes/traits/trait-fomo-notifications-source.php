@@ -15,31 +15,13 @@
 trait Fomo_Notifications_Source_Trait {
 
 	/**
-	 * Options table key
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var string
-	 */
-	public $settings_key = '';
-
-	/**
-	 * Holds the settings class for the section.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var     false|Fomo_Notifications_Settings
-	 */
-	public $settings;
-
-	/**
 	 * The programmatic name of the notification source
 	 *
 	 * @since   1.0.0
 	 *
 	 * @var     string
 	 */
-	public $source_name = '';
+	private $name = '';
 
 	/**
 	 * The label / title of the notification source
@@ -48,7 +30,7 @@ trait Fomo_Notifications_Source_Trait {
 	 *
 	 * @var     string
 	 */
-	public $source_label = '';
+	private $label = '';
 
 	/**
 	 * The description text to display in the settings section
@@ -58,7 +40,16 @@ trait Fomo_Notifications_Source_Trait {
 	 *
 	 * @var     string
 	 */
-	public $source_description = '';
+	private $description = '';
+
+	/**
+	 * The default settings for the source.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     array
+	 */
+	private $defaults = array();
 
 	/**
 	 * Register this integration as a notification source.
@@ -69,43 +60,23 @@ trait Fomo_Notifications_Source_Trait {
 	 */
 	public function register_source( $sources ) {
 
-		return array_merge( $sources, array( $this->source_name => $this->source_label ) );
+		return array_merge( $sources, array( $this->name => $this->label ) );
 
 	}
 
 	/**
-	 * Register a settings section on the Plugin settings for this source.
+	 * The default settings, used when a notification has not yet been saved.
 	 *
 	 * @since   1.0.0
 	 *
-	 * @param   array $sections   Sections.
-	 * @return  array
+	 * @param   array $defaults   Default Settings.
 	 */
-	public function register_settings_section( $sections ) {
+	public function get_defaults( $defaults ) {
 
 		return array_merge(
-			$sections,
-			array(
-				$this->source_name => array(
-					'title'    => $this->source_label,
-					'callback' => array( $this, 'settings_section_info' ),
-					'wrap'     => true,
-				),
-			)
+			$defaults,
+			$this->defaults
 		);
-
-	}
-
-	/**
-	 * Outputs the description in the settings section, after the title.
-	 *
-	 * @since   1.0.0
-	 */
-	public function settings_section_info() {
-
-		?>
-		<p class="description"><?php esc_html( $this->source_description ); ?></p>
-		<?php
 
 	}
 

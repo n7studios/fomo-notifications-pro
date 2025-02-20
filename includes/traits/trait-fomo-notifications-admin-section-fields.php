@@ -142,7 +142,7 @@ trait Fomo_Notifications_Admin_Section_Fields_Trait {
 	 *
 	 * @param   array $args   Field arguments.
 	 */
-	public function multiple_select_field_callback( $args ) {
+	public function select_multiple_field_callback( $args ) {
 
 		// Build opening <select> tag.
 		$html = sprintf(

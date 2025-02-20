@@ -25,7 +25,7 @@ class Fomo_Notifications_Admin_Section_General {
 	public function __construct() {
 
 		// Define the class that reads/writes settings.
-		$this->settings = new Fomo_Notifications_Settings();
+		$this->settings = new Fomo_Notifications_Plugin_Settings();
 
 		// Define the programmatic name, title, tab and settings key.
 		$this->name         = 'general';
@@ -91,48 +91,15 @@ class Fomo_Notifications_Admin_Section_General {
 	 */
 	public function register_fields() {
 
-		$sources = array();
-
-		/**
-		 * Define registered notification sources.
-		 *
-		 * @since   1.0.0
-		 *
-		 * @param   array   $sources    Sources.
-		 */
-		$sources = apply_filters( 'fomo_notifications_get_sources', $sources );
-
 		// Define fields.
 		$fields = array(
-			'limit'  => array(
-				'title'   => __( 'Number of Notifications', 'fomo-notifications' ),
-				'section' => $this->name,
-				'props'   => array(
-					'type'        => 'number',
-					'value'       => $this->settings->limit(),
-					'min'         => 1,
-					'max'         => 50,
-					'step'        => 1,
-					'description' => esc_html__( 'The maximum number of notifications to display.', 'fomo-notifications' ),
-				),
-			),
-			'loop'   => array(
-				'title'   => __( 'Loop Notifications', 'fomo-notifications' ),
+			'display_multiple_templates' => array(
+				'title'   => __( 'Display multiple?', 'fomo-notifications' ),
 				'section' => $this->name,
 				'props'   => array(
 					'type'        => 'checkbox',
 					'value'       => $this->settings->loop(),
-					'description' => esc_html__( 'If enabled, notifications will continue to display in a loop.', 'fomo-notifications' ),
-				),
-			),
-			'source' => array(
-				'title'   => __( 'Source', 'fomo-notifications' ),
-				'section' => $this->name,
-				'props'   => array(
-					'type'        => 'select',
-					'value'       => $this->settings->source(),
-					'options'     => $sources,
-					'description' => esc_html__( 'The source to use for notification data.', 'fomo-notifications' ),
+					'description' => esc_html__( 'If enabled, multiple notification templates may be displayed.', 'fomo-notifications' ),
 				),
 			),
 		);
@@ -174,7 +141,7 @@ class Fomo_Notifications_Admin_Section_General {
 	public function print_section_info() {
 
 		?>
-		<p class="description"><?php esc_html_e( 'Define the source of notifications, number of notifications to display and whether to loop notifications.', 'fomo-notifications' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Define the behaviour of notification templates.', 'fomo-notifications' ); ?></p>
 		<?php
 
 	}

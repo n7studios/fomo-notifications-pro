@@ -14,7 +14,6 @@
  */
 class Fomo_Notifications_Source_Woocommerce {
 
-	use Fomo_Notifications_Admin_Section_Fields_Trait;
 	use Fomo_Notifications_Source_Trait;
 
 	/**
@@ -24,110 +23,103 @@ class Fomo_Notifications_Source_Woocommerce {
 	 */
 	public function __construct() {
 
-		// Define source name, label and description.
-		$this->source_name        = 'woocommerce';
-		$this->source_label       = __( 'WooCommerce', 'fomo-notifications' );
-		$this->source_description = __( 'Define criteria for including WooCommerce orders as notifications.', 'fomo-notifications' );
+		// Bail if WooCommerce isn't active.
+		if ( ! function_exists( 'wc_get_order_statuses' ) ) {
+			return;
+		}
 
-		// Register integration as a source.
-		add_filter( 'fomo_notifications_get_sources', array( $this, 'register_source' ) );
+		// Define source name, label, description and fields.
+		$this->name        = 'woocommerce';
+		$this->label       = __( 'WooCommerce', 'fomo-notifications' );
+		$this->description = __( 'Define criteria for including WooCommerce orders as notifications.', 'fomo-notifications' );
+		$this->defaults    = array(
+			$this->name . '_limit'        => 10,
+			$this->name . '_order_age'    => 90,
+			$this->name . '_order_status' => array( 'wc-completed' ),
+		);
 
-		// Register settings section and fields.
-		add_filter( 'fomo_notifications_admin_section_general_sections', array( $this, 'register_settings_section' ) );
-		add_filter( 'fomo_notifications_admin_section_general_register_fields', array( $this, 'register_fields' ), 10, 2 );
+		// Register as a source.
+		add_filter( 'fomo_notifications_admin_notification_ui_get_sources', array( $this, 'register_source' ) );
 
-		// Define defaults.
-		add_filter( 'fomo_notifications_settings_get_defaults', array( $this, 'get_defaults' ) );
+		// Register fields and defaults when adding/editing a notification for this source.
+		add_filter( 'fomo_notifications_admin_notification_ui_get_conditions_fields', array( $this, 'register_conditions_fields' ), 10, 2 );
+		add_filter( 'fomo_notifications_notification_settings_get_defaults', array( $this, 'get_defaults' ) );
 
 		// Frontend.
-		add_filter( 'fomo_notifications_output_get_notifications_' . $this->source_name, array( $this, 'get_notifications' ) );
+		add_filter( 'fomo_notifications_output_get_notifications_' . $this->name, array( $this, 'get_notifications' ), 10, 2 );
 
 	}
 
 	/**
-	 * Register settings fields for this source.
+	 * Register conditions fields for this source.
 	 *
 	 * @since   1.0.0
 	 *
-	 * @param   array                       $fields     Fields.
-	 * @param   Fomo_Notifications_Settings $settings   Settings class.
+	 * @param   array                                    $fields     Fields.
+	 * @param   Fomo_Notifications_Notification_Settings $settings   Notification Settings instance.
 	 * @return  array
 	 */
-	public function register_fields( $fields, $settings ) {
-
-		// Bail if WooCommerce isn't active.
-		if ( ! function_exists( 'wc_get_order_statuses' ) ) {
-			return $fields;
-		}
+	public function register_conditions_fields( $fields, $settings ) {
 
 		return array_merge(
 			$fields,
 			array(
-				$this->source_name . '_order_days'   => array(
-					'title'   => __( 'Maximum Order Age', 'fomo-notifications' ),
-					'section' => $this->source_name,
-					'props'   => array(
-						'type'        => 'number',
-						'value'       => $settings->get_by_key( $this->source_name . '_order_age' ),
-						'min'         => 1,
-						'max'         => 9999,
-						'step'        => 1,
-						'unit'        => __( 'days', 'fomo-notifications' ),
-						'description' => esc_html__( 'The maximum age of Orders to include.', 'fomo-notifications' ),
-					),
+				$this->name . '_limit'        => array(
+					'label'       => __( 'Number of Notifications', 'fomo-notifications' ),
+
+					'type'        => 'number',
+					'value'       => $settings->get_by_key( $this->name . '_limit' ),
+					'min'         => 1,
+					'max'         => 50,
+					'step'        => 1,
+					'description' => esc_html__( 'The maximum number of WooCommerce Order notifications to display.', 'fomo-notifications' ),
+
 				),
-				$this->source_name . '_order_status' => array(
-					'title'   => __( 'Order Status', 'fomo-notifications' ),
-					'section' => $this->source_name,
-					'props'   => array(
-						'type'        => 'multiple_select',
-						'value'       => $settings->get_by_key( $this->source_name . '_order_status' ),
-						'options'     => wc_get_order_statuses(),
-						'description' => esc_html__( 'Only include orders with the defined statuses. Ctrl / Cmd + click statuses to include/exclude.', 'fomo-notifications' ),
-					),
+				$this->name . '_order_age'    => array(
+					'label'       => __( 'Maximum Order Age', 'fomo-notifications' ),
+
+					'type'        => 'number',
+					'value'       => $settings->get_by_key( $this->name . '_order_age' ),
+					'min'         => 1,
+					'max'         => 9999,
+					'step'        => 1,
+					'unit'        => __( 'days', 'fomo-notifications' ),
+					'description' => esc_html__( 'The maximum age of WooCommerce Orders to include.', 'fomo-notifications' ),
+
 				),
-			)
+				$this->name . '_order_status' => array(
+					'label'       => __( 'Order Status', 'fomo-notifications' ),
+
+					'type'        => 'select_multiple',
+					'value'       => $settings->get_by_key( $this->name . '_order_status' ),
+					'options'     => wc_get_order_statuses(),
+					'description' => esc_html__( 'Only include WooCommerce Orders with the defined statuses. Ctrl / Cmd + click statuses to include/exclude.', 'fomo-notifications' ),
+
+				),
+
+				// @TODO by product(s) etc.
+			),
 		);
 
 	}
 
 	/**
-	 * The default settings, used when the Plugin Settings haven't been saved
-	 * e.g. on a new installation.
+	 * Returns notifications to display for the given notification template,
+	 * if this integration is defined as the source.
 	 *
 	 * @since   1.0.0
 	 *
-	 * @param   array $defaults   Default Settings.
-	 */
-	public function get_defaults( $defaults ) {
-
-		return array_merge(
-			$defaults,
-			array(
-				$this->source_name . '_order_age'    => 90,
-				$this->source_name . '_order_status' => array( 'wc-completed' ),
-			)
-		);
-
-	}
-
-	/**
-	 * Returns notifications to display for this source.
-	 *
-	 * @since   1.0.0
-	 *
+	 * @param   array                                    $notifications  Notifications data to display.
+	 * @param   Fomo_Notifications_Notification_Settings $settings       Settings instance for this notification template.
 	 * @return  array
 	 */
-	public function get_notifications() {
-
-		// Define the class that reads/writes settings.
-		$settings = new Fomo_Notifications_Settings();
+	public function get_notifications( $notifications, $settings ) {
 
 		// Get Orders.
 		$order_ids = $this->get_order_ids(
-			$settings->get_by_key( $this->source_name . '_order_status' ),
-			$settings->get_by_key( $this->source_name . '_order_age' ),
-			$settings->limit()
+			$settings->get_by_key( $this->name . '_order_status' ),
+			$settings->get_by_key( $this->name . '_order_age' ),
+			$settings->get_by_key( $this->name . '_limit' )
 		);
 
 		// Bail if no Orders exist.
@@ -136,7 +128,6 @@ class Fomo_Notifications_Source_Woocommerce {
 		}
 
 		// Build notifications from Orders.
-		$notifications = array();
 		foreach ( $order_ids as $order_id ) {
 			// Get order.
 			$order = wc_get_order( $order_id );

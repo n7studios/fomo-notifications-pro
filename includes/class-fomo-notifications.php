@@ -102,9 +102,26 @@ class Fomo_Notifications {
 			__( 'FOMO Notifications', 'fomo-notifications' ),
 			__( 'FOMO Notifications', 'fomo-notifications' ),
 			$minimum_capability,
-			'fomo-notifications-settings',
+			$this->plugin->name,
 			array( $this->classes['admin_settings'], 'display_settings_page' ),
 			FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/images/icons/logo-light.svg'
+		);
+
+		add_submenu_page(
+			$this->plugin->name,
+			__( 'Settings', 'fomo-notifications' ),
+			__( 'Settings', 'fomo-notifications' ),
+			$minimum_capability,
+			$this->plugin->name,
+			array( $this->classes['admin_settings'], 'display_settings_page' ),
+		);
+
+		add_submenu_page(
+			$this->plugin->name,
+			__( 'Notifications', 'fomo-notifications' ),
+			__( 'Notifications', 'fomo-notifications' ),
+			$minimum_capability,
+			'edit.php?post_type=fomo-notification'
 		);
 
 	}
@@ -134,7 +151,8 @@ class Fomo_Notifications {
 			return;
 		}
 
-		$this->classes['admin_settings'] = new Fomo_Notifications_Admin_Settings();
+		$this->classes['admin_notification_ui'] = new Fomo_Notifications_Admin_Notification_UI();
+		$this->classes['admin_settings']        = new Fomo_Notifications_Admin_Settings();
 
 		/**
 		 * Initialize integration classes for the WordPress Administration interface.
@@ -176,6 +194,7 @@ class Fomo_Notifications {
 	 */
 	private function initialize_global() {
 
+		$this->classes['post_type']   = new Fomo_Notifications_Post_Type();
 		$this->classes['woocommerce'] = new Fomo_Notifications_Source_Woocommerce();
 
 		/**

@@ -97,6 +97,9 @@ class Fomo_Notifications_Pro {
 		$this->plugin->displayName       = $this->licensing->get_feature_parameter( 'whitelabelling', 'display_name', $this->plugin->displayName );
 		$this->plugin->support_url       = $this->licensing->get_feature_parameter( 'whitelabelling', 'support_url', $this->plugin->support_url );
 		$this->plugin->documentation_url = $this->licensing->get_feature_parameter( 'whitelabelling', 'documentation_url', $this->plugin->documentation_url );
+		if ( ! empty( $this->licensing->get_feature_parameter( 'whitelabelling', 'logo', $this->plugin->logo ) ) ) {
+			$this->plugin->logo = $this->licensing->get_feature_parameter( 'whitelabelling', 'logo', $this->plugin->logo );
+		}
 
 		// Dashboard Submodule.
 		if ( ! class_exists( 'WPZincDashboardWidget' ) ) {
@@ -142,8 +145,23 @@ class Fomo_Notifications_Pro {
 		}
 
 		// Licensing.
-		add_menu_page( $this->plugin->displayName, $this->plugin->displayName, $minimum_capability, $this->plugin->name, array( $this->licensing, 'licensing_screen' ), $this->plugin->url . 'assets/images/icons/logo-light.svg' );
-		add_submenu_page( $this->plugin->name, __( 'Licensing', 'fomo-notifications' ), __( 'Licensing', 'fomo-notifications' ), $minimum_capability, $this->plugin->name, array( $this->licensing, 'licensing_screen' ) );
+		add_menu_page(
+			$this->plugin->displayName,
+			$this->plugin->displayName,
+			$minimum_capability,
+			$this->plugin->name,
+			array( $this->licensing, 'licensing_screen' ),
+			$this->plugin->logo
+		);
+
+		add_submenu_page(
+			$this->plugin->name,
+			__( 'Licensing', 'fomo-notifications' ),
+			__( 'Licensing', 'fomo-notifications' ),
+			$minimum_capability,
+			$this->plugin->name,
+			array( $this->licensing, 'licensing_screen' )
+		);
 
 		// Bail if the product is not licensed.
 		if ( ! $this->licensing->check_license_key_valid() ) {
@@ -152,8 +170,23 @@ class Fomo_Notifications_Pro {
 
 		// Licensed - add additional menu entries, if access permitted.
 		if ( $this->licensing->can_access( 'show_menu_settings' ) ) {
-			$settings_page = add_submenu_page( $this->plugin->name, __( 'Settings', 'fomo-notifications' ), __( 'Settings', 'fomo-notifications' ), $minimum_capability, $this->plugin->name . '-settings', array( $this->classes['admin_settings'], 'display_settings_page' ) );
+			$settings_page = add_submenu_page(
+				$this->plugin->name,
+				__( 'Settings', 'fomo-notifications' ),
+				__( 'Settings', 'fomo-notifications' ),
+				$minimum_capability,
+				$this->plugin->name . '-settings',
+				array( $this->classes['admin_settings'], 'display_settings_page' ),
+			);
 		}
+
+		$notifications_page = add_submenu_page(
+			$this->plugin->name,
+			__( 'Notifications', 'fomo-notifications' ),
+			__( 'Notifications', 'fomo-notifications' ),
+			$minimum_capability,
+			'edit.php?post_type=fomo-notification'
+		);
 
 		// Import & Export.
 		if ( $this->licensing->can_access( 'show_menu_import_export' ) ) {
@@ -215,7 +248,8 @@ class Fomo_Notifications_Pro {
 			return;
 		}
 
-		$this->classes['admin_settings'] = new Fomo_Notifications_Admin_Settings();
+		$this->classes['admin_notification_ui'] = new Fomo_Notifications_Admin_Notification_UI();
+		$this->classes['admin_settings']        = new Fomo_Notifications_Admin_Settings();
 
 		/**
 		 * Initialize integration classes for the WordPress Administration interface.
@@ -258,6 +292,7 @@ class Fomo_Notifications_Pro {
 	private function initialize_global() {
 
 		// Load integrations that are included in the Free version.
+		$this->classes['post_type']   = new Fomo_Notifications_Post_Type();
 		$this->classes['woocommerce'] = new Fomo_Notifications_Source_Woocommerce();
 
 		// Bail if not licensed.

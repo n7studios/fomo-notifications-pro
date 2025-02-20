@@ -1,18 +1,20 @@
 <?php
 /**
- * FOMO Notifications settings class.
+ * FOMO Notifications plugin settings class.
  *
  * @package Fomo_Notifications
  * @author WP Zinc
  */
 
 /**
- * FOMO Notifications settings class.
+ * FOMO Notifications plugin settings class.
  *
  * @package Fomo_Notifications
  * @author WP Zinc
  */
-class Fomo_Notifications_Settings {
+class Fomo_Notifications_Plugin_Settings {
+
+	use Fomo_Notifications_Settings_Trait;
 
 	/**
 	 * Holds the Settings Key that stores Plugin settings
@@ -22,15 +24,6 @@ class Fomo_Notifications_Settings {
 	 * @var     string
 	 */
 	const SETTINGS_NAME = '_fomo_notifications_settings';
-
-	/**
-	 * Holds the Settings
-	 *
-	 * @since   1.0.0
-	 *
-	 * @var     array
-	 */
-	private $settings = array();
 
 	/**
 	 * Constructor. Reads settings from options table, falling back to defaults
@@ -49,19 +42,6 @@ class Fomo_Notifications_Settings {
 		} else {
 			$this->settings = array_merge( $this->get_defaults(), $settings );
 		}
-
-	}
-
-	/**
-	 * Returns Plugin settings.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @return  array
-	 */
-	public function get() {
-
-		return $this->settings;
 
 	}
 
@@ -105,20 +85,6 @@ class Fomo_Notifications_Settings {
 	}
 
 	/**
-	 * Returns the source setting for the given key.
-	 *
-	 * @since   1.0.0
-	 *
-	 * @param   string $key    Setting key.
-	 * @return  string|int|array
-	 */
-	public function get_by_key( $key ) {
-
-		return $this->settings[ $key ];
-
-	}
-
-	/**
 	 * The default settings, used when the Plugin Settings haven't been saved
 	 * e.g. on a new installation.
 	 *
@@ -135,14 +101,13 @@ class Fomo_Notifications_Settings {
 		);
 
 		/**
-		 * The default settings, used when the Plugin Settings haven't been saved
-		 * e.g. on a new installation.
+		 * The default Plugin settings.
 		 *
 		 * @since   1.0.0
 		 *
 		 * @param   array   $defaults   Default Settings.
 		 */
-		$defaults = apply_filters( 'fomo_notifications_settings_get_defaults', $defaults );
+		$defaults = apply_filters( 'fomo_notifications_plugin_settings_get_defaults', $defaults );
 
 		return $defaults;
 
