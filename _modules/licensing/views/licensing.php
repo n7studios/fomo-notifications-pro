@@ -41,7 +41,7 @@
 				<div id="post-body-content">
 
 					<!-- Form Start -->
-					<form name="post" method="post" action="<?php echo esc_attr( $_SERVER['REQUEST_URI'] ); ?>">
+					<form name="post" method="post" action="<?php echo ( isset( $_SERVER['REQUEST_URI'] ) ? esc_attr( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) ) : '' ); ?>">
 						<div id="normal-sortables" class="meta-box-sortables ui-sortable">                        
 							<div class="postbox">
 								<h3 class="hndle"><?php esc_html_e( 'License Key', $this->plugin->name ); // phpcs:ignore WordPress.WP.I18n ?></h3>

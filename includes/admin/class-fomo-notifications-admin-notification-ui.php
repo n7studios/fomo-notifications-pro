@@ -69,6 +69,7 @@ class Fomo_Notifications_Admin_Notification_UI {
 	public function admin_scripts() {
 
 		wp_enqueue_script( 'wpzinc-admin-tabs' );
+		wp_enqueue_script( 'fomo-notifications-admin', FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/js/admin.js', array( 'jquery' ), FOMO_NOTIFICATIONS_PLUGIN_VERSION, true );
 
 	}
 

@@ -118,9 +118,9 @@ class LicensingUpdateManager {
 			/**
 			 * Licensing Screen
 			 */
-			if ( isset( $_GET['page'] ) && sanitize_text_field( $_GET['page'] ) === $this->plugin->name ) { // phpcs:ignore WordPress.Security.NonceVerification
+			if ( isset( $_GET['page'] ) && sanitize_text_field( wp_unslash( $_GET['page'] ) ) === $this->plugin->name ) { // phpcs:ignore WordPress.Security.NonceVerification
 				if ( isset( $_POST[ $this->plugin->name ] ) && is_array( $_POST[ $this->plugin->name ] ) && array_key_exists( 'licenseKey', $_POST[ $this->plugin->name ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification
-					update_option( $this->plugin->name . '_licenseKey', sanitize_text_field( $_POST[ $this->plugin->name ]['licenseKey'] ) ); // phpcs:ignore WordPress.Security.NonceVerification
+					update_option( $this->plugin->name . '_licenseKey', sanitize_text_field( wp_unslash( $_POST[ $this->plugin->name ]['licenseKey'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification
 				}
 
 				// Force license key check.
@@ -216,7 +216,7 @@ class LicensingUpdateManager {
 		// so we don't bombard the user with this message site-wide.
 		$screen = get_current_screen();
 		if ( $screen->base === 'toplevel_page_' . $this->plugin->name ||
-			( isset( $_REQUEST['page'] ) && sanitize_text_field( $_REQUEST['page'] ) === $this->plugin->name ) ) { // phpcs:ignore WordPress.Security.NonceVerification
+			( isset( $_REQUEST['page'] ) && sanitize_text_field( wp_unslash( $_REQUEST['page'] ) ) === $this->plugin->name ) ) { // phpcs:ignore WordPress.Security.NonceVerification
 			?>
 			<div class="notice updated"><p><?php echo $cache['message']; // phpcs:ignore WordPress.Security.EscapeOutput ?></p></div>
 			<?php
@@ -376,7 +376,7 @@ class LicensingUpdateManager {
 							sprintf(
 								/* translators: Server IP Address */
 								__( ' IP Address: %s', $this->plugin->name ), // phpcs:ignore WordPress.WP.I18n
-								( isset( $_SERVER['SERVER_ADDR'] ) ? $_SERVER['SERVER_ADDR'] : false )
+								( isset( $_SERVER['SERVER_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['SERVER_ADDR'] ) ) : false )
 							),
 						)
 					);

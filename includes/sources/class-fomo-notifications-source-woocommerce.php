@@ -66,18 +66,17 @@ class Fomo_Notifications_Source_Woocommerce {
 			array(
 				$this->name . '_limit'        => array(
 					'label'       => __( 'Number of Notifications', 'fomo-notifications' ),
-
+					'source'      => 'woocommerce',
 					'type'        => 'number',
 					'value'       => $settings->get_by_key( $this->name . '_limit' ),
 					'min'         => 1,
 					'max'         => 50,
 					'step'        => 1,
 					'description' => esc_html__( 'The maximum number of WooCommerce Order notifications to display.', 'fomo-notifications' ),
-
 				),
 				$this->name . '_order_age'    => array(
 					'label'       => __( 'Maximum Order Age', 'fomo-notifications' ),
-
+					'source'      => 'woocommerce',
 					'type'        => 'number',
 					'value'       => $settings->get_by_key( $this->name . '_order_age' ),
 					'min'         => 1,
@@ -85,16 +84,14 @@ class Fomo_Notifications_Source_Woocommerce {
 					'step'        => 1,
 					'unit'        => __( 'days', 'fomo-notifications' ),
 					'description' => esc_html__( 'The maximum age of WooCommerce Orders to include.', 'fomo-notifications' ),
-
 				),
 				$this->name . '_order_status' => array(
 					'label'       => __( 'Order Status', 'fomo-notifications' ),
-
+					'source'      => 'woocommerce',
 					'type'        => 'select_multiple',
 					'value'       => $settings->get_by_key( $this->name . '_order_status' ),
 					'options'     => wc_get_order_statuses(),
 					'description' => esc_html__( 'Only include WooCommerce Orders with the defined statuses. Ctrl / Cmd + click statuses to include/exclude.', 'fomo-notifications' ),
-
 				),
 
 				// @TODO by product(s) etc.
