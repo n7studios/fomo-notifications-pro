@@ -82,7 +82,11 @@ class Fomo_Notifications_Notification_Settings {
 	public function get_defaults() {
 
 		$defaults = array(
+			// Source.
 			'source' => '',
+
+			// Conditions.
+			'conditions_visitor_type' => '',
 		);
 
 		/**

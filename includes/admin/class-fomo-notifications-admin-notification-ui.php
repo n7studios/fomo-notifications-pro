@@ -24,6 +24,8 @@ class Fomo_Notifications_Admin_Notification_UI {
 	 */
 	private $post_type = 'fomo-notification';
 
+	private $settings;
+
 	/**
 	 * Constructor.
 	 *
@@ -101,7 +103,7 @@ class Fomo_Notifications_Admin_Notification_UI {
 	public function output_meta_box( $post ) {
 
 		// Load settings for this notification.
-		$settings = new Fomo_Notifications_Notification_Settings( $post->ID );
+		$this->settings = $settings = new Fomo_Notifications_Notification_Settings( $post->ID );
 
 		/**
 		 * Define the available notification sources.
@@ -116,13 +118,10 @@ class Fomo_Notifications_Admin_Notification_UI {
 		$source_fields = array(
 			'source' => array(
 				'label'       => __( 'Source', 'fomo-notifications' ),
-				'section'     => 'source',
-
 				'type'        => 'select',
-				'value'       => $settings->get_by_key( 'source' ),
+				'value'       => $this->settings->get_by_key( 'source' ),
 				'options'     => $sources,
 				'description' => esc_html__( 'The source to use for notifications data.', 'fomo-notifications' ),
-
 			),
 		);
 
@@ -138,11 +137,11 @@ class Fomo_Notifications_Admin_Notification_UI {
 		 * @param   Fomo_Notifications_Notification_Settings    $settings           Settings instance for this notification.
 		 * @param   int                                         $post_id            Notification ID.
 		 */
-		$display_fields = apply_filters( 'fomo_notifications_admin_notification_ui_get_display_fields', $display_fields, $settings, $post->ID );
+		$display_fields = apply_filters( 'fomo_notifications_admin_notification_ui_get_display_fields', $display_fields, $this->settings, $post->ID );
 
 		// Define the conditions fields that must always display.
 		// @TODO Shared conditions i.e. logged in, logged out etc etc.
-		$conditions_fields = array();
+		$conditions_fields = $this->get_conditions_fields();
 
 		/**
 		 * Define the available settings fields for the conditions section
@@ -153,13 +152,43 @@ class Fomo_Notifications_Admin_Notification_UI {
 		 * @param   Fomo_Notifications_Notification_Settings    $settings               Settings instance for this notification.
 		 * @param   int                                         $post_id                Notification ID.
 		 */
-		$conditions_fields = apply_filters( 'fomo_notifications_admin_notification_ui_get_conditions_fields', $conditions_fields, $settings, $post->ID );
+		$conditions_fields = apply_filters( 'fomo_notifications_admin_notification_ui_get_conditions_fields', $conditions_fields, $this->settings, $post->ID );
 
 		// Load view.
 		include FOMO_NOTIFICATIONS_PLUGIN_PATH . 'views/backend/meta-box.php';
 
 		// Output nonce.
 		wp_nonce_field( 'save_notification', $this->post_type . '_nonce' );
+
+	}
+
+	private function get_conditions_fields() {
+
+		return array(
+			'conditions_visitor_type' => array(
+				'label'       => __( 'Visitor Type', 'fomo-notifications' ),
+				'type'        => 'select_multiple',
+				'value'       => $this->settings->get_by_key( 'conditions_visitor_type' ),
+				'options'     => $this->get_conditions_visitor_type_options(),
+				'description' => esc_html__( 'The visitors who should see this notification. By default, all visitors will see this notification.', 'fomo-notifications' ),
+			),
+		);
+
+	}
+
+	private function get_conditions_visitor_type_options() {
+
+		$options = array(
+			'logged_in' => __( 'Logged in visitors', 'fomo-notifications' ),
+			'logged_out' => __( 'Logged out visitors', 'fomo-notifications' ),
+		);
+
+		// Add roles.
+		foreach ( get_editable_roles() as $key => $role ) {
+			$options[ 'role_' . $key ] = $role['name'];
+		}
+
+		return $options;
 
 	}
 

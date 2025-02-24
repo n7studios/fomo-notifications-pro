@@ -18,14 +18,11 @@ jQuery( document ).ready(
 
 				var source = $( this ).val();
 
-				// Hide all options.
-				$( '.wpzinc-option' ).hide();
-
-				// Show this option.
-				$( this ).closest( '.wpzinc-option' ).show();
+				// Hide all conditional options.
+				$( '.wpzinc-option.conditional' ).hide();
 
 				// Show options for this source.
-				$( '.wpzinc-option.' + source ).show();
+				$( '.wpzinc-option.conditional.' + source ).show();
 
 			}
 		);
