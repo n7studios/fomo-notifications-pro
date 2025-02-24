@@ -10,6 +10,7 @@
 // Initialize variables.
 let fomoNotificationCurrentIndex = 0;
 let fomoNotificationTimeout;
+let fomoNotificationNotifications;
 
 /**
  * Update the notification data with the next data in the array,
@@ -20,7 +21,7 @@ let fomoNotificationTimeout;
 function fomoNotificationsShow() {
 
 	// Get next notification.
-	fomoNotificationsPopulate( fomo_notifications.notifications[fomoNotificationCurrentIndex] );
+	fomoNotificationsPopulate( fomoNotificationNotifications[fomoNotificationCurrentIndex] );
 
 	// Show the notification.
 	document.getElementById( 'fomo-notification' ).classList.add( 'show' );
@@ -50,7 +51,7 @@ function fomoNotificationsHide() {
 		function () {
 
 			// Update index for next notification, or loop back to the start if we reach the end.
-			fomoNotificationCurrentIndex = (fomoNotificationCurrentIndex + 1) % fomo_notifications.notifications.length;
+			fomoNotificationCurrentIndex = (fomoNotificationCurrentIndex + 1) % fomoNotificationNotifications.length;
 
 			// Show next notification after a delay.
 			setTimeout( fomoNotificationsShow, 2000 );
@@ -86,10 +87,36 @@ document.addEventListener(
 	'DOMContentLoaded',
 	function () {
 
-		if (fomo_notifications.notifications && fomo_notifications.notifications.length > 0) {
-			// Initial delay before starting.
-			setTimeout( fomoNotificationsShow, 1000 );
-		}
+		// Fetch notifications.
+		fetch(
+			fomo_notifications.ajax_url,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: new URLSearchParams({
+    				action: fomo_notifications.action,
+					nonce: fomo_notifications.nonce
+				}).toString(),
+			}
+		)
+		.then(
+			function ( response ) {
+				return response.json();
+			}
+		)
+		.then(
+			function ( result ) {
+				fomoNotificationNotifications = result.data;
+				setTimeout( fomoNotificationsShow, 1000 );
+			}
+		)
+		.catch(
+			function ( error ) {
+				console.log( error );
+			}
+		);
 
 	}
 );

@@ -18,6 +18,8 @@ class Fomo_Notifications_Notifications {
 	 * Returns all Notifications
 	 *
 	 * @since   1.0.0
+	 * 
+	 * @return 	bool|array
 	 */
 	public function get_all() {
 
@@ -68,6 +70,25 @@ class Fomo_Notifications_Notifications {
 
 		// Return filtered results.
 		return $notifications_arr;
+
+	}
+
+	public function get_ids() {
+
+		// Get all notifications.
+		$notifications = new WP_Query(
+			array(
+				'post_type'              => 'fomo-notification',
+				'post_status'            => 'publish',
+
+				'fields'				 => 'ids',
+				'cache_results'          => false,
+				'update_post_meta_cache' => false,
+				'update_post_term_cache' => false,
+			)
+		);
+
+		return $notifications->posts;
 
 	}
 

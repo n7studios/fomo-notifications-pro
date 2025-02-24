@@ -281,8 +281,6 @@ class Fomo_Notifications_Pro {
 			return;
 		}
 
-		$this->classes['output'] = new Fomo_Notifications_Output();
-
 		/**
 		 * Initialize integration classes for the frontend web site.
 		 *
@@ -301,6 +299,7 @@ class Fomo_Notifications_Pro {
 	private function initialize_global() {
 
 		// Load integrations that are included in the Free version.
+		$this->classes['output']   = new Fomo_Notifications_Output();
 		$this->classes['post_type']   = new Fomo_Notifications_Post_Type();
 		$this->classes['woocommerce'] = new Fomo_Notifications_Source_Woocommerce();
 

@@ -109,7 +109,7 @@ switch ( $field['type'] ) {
 			if ( isset( $field['options'] ) && is_array( $field['options'] ) && count( $field['options'] ) > 0 ) {
 				foreach ( $field['options'] as $value => $label ) {
 					?>
-					<option value="<?php echo esc_attr( $value ); ?>"<?php echo esc_attr( in_array( $value, (array) $field['value'], true ) ? ' selected' : '' ); ?>>
+					<option value="<?php echo esc_attr( $value ); ?>"<?php echo esc_attr( in_array( $value, (array) $field['value'] ) ? ' selected' : '' ); ?>>
 						<?php echo esc_attr( $label ); ?>
 					</option>
 					<?php

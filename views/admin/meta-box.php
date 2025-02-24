@@ -54,7 +54,7 @@
 				<header>
 					<h3><?php esc_html_e( 'Display Settings', 'fomo-notifications' ); ?></h3>
 					<p class="description">
-						<?php esc_html_e( 'Controls the design and type of notification to display.', 'fomo-notifications' ); ?>
+						<?php esc_html_e( 'Controls what to display for this notification.', 'fomo-notifications' ); ?>
 					</p>
 				</header>
 
@@ -72,7 +72,7 @@
 				<header>
 					<h3><?php esc_html_e( 'Conditions', 'fomo-notifications' ); ?></h3>
 					<p class="description">
-						<?php esc_html_e( 'Controls where and when the notification should display, and the precise data to show.', 'fomo-notifications' ); ?>
+						<?php esc_html_e( 'Controls where and when the notification should display.', 'fomo-notifications' ); ?>
 					</p>
 				</header>
 

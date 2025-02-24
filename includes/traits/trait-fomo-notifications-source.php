@@ -80,4 +80,10 @@ trait Fomo_Notifications_Source_Trait {
 
 	}
 
+	public function shorten_name( $name ) {
+
+		
+		
+	}
+
 }

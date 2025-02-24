@@ -42,11 +42,11 @@ class Fomo_Notifications_Source_Woocommerce {
 		add_filter( 'fomo_notifications_admin_notification_ui_get_sources', array( $this, 'register_source' ) );
 
 		// Register fields and defaults when adding/editing a notification for this source.
-		add_filter( 'fomo_notifications_admin_notification_ui_get_conditions_fields', array( $this, 'register_conditions_fields' ), 10, 2 );
+		add_filter( 'fomo_notifications_admin_notification_ui_get_display_fields', array( $this, 'register_display_fields' ), 10, 2 );
 		add_filter( 'fomo_notifications_notification_settings_get_defaults', array( $this, 'get_defaults' ) );
 
 		// Frontend.
-		add_filter( 'fomo_notifications_output_get_notifications_' . $this->name, array( $this, 'get_notifications' ), 10, 2 );
+		add_filter( 'fomo_notifications_output_get_notifications_items_' . $this->name, array( $this, 'get_notifications' ), 10, 2 );
 
 	}
 
@@ -59,7 +59,7 @@ class Fomo_Notifications_Source_Woocommerce {
 	 * @param   Fomo_Notifications_Notification_Settings $settings   Notification Settings instance.
 	 * @return  array
 	 */
-	public function register_conditions_fields( $fields, $settings ) {
+	public function register_display_fields( $fields, $settings ) {
 
 		return array_merge(
 			$fields,
@@ -93,7 +93,6 @@ class Fomo_Notifications_Source_Woocommerce {
 					'options'     => wc_get_order_statuses(),
 					'description' => esc_html__( 'Only include WooCommerce Orders with the defined statuses. Ctrl / Cmd + click statuses to include/exclude.', 'fomo-notifications' ),
 				),
-
 				// @TODO by product(s) etc.
 			),
 		);

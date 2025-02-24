@@ -72,6 +72,19 @@ class Fomo_Notifications_Notification_Settings {
 	}
 
 	/**
+	 * Returns the text to use for this notification.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @return  string
+	 */
+	public function get_text() {
+
+		return $this->settings['text'];
+
+	}
+
+	/**
 	 * The default settings, used when a Notification's Settings haven't been saved
 	 * e.g. on a new notification.
 	 *
@@ -84,6 +97,9 @@ class Fomo_Notifications_Notification_Settings {
 		$defaults = array(
 			// Source.
 			'source'                  => '',
+
+			// Display.
+			'text'					  => '{name} from {location} purchased {product_name}',
 
 			// Conditions.
 			'conditions_visitor_type' => '',
@@ -111,6 +127,17 @@ class Fomo_Notifications_Notification_Settings {
 	 */
 	public function save( $meta ) {
 
+		// Iterate through meta, performing sanitization.
+		foreach ( wp_unslash( $meta ) as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$meta[ $key ] = array_map( 'sanitize_text_field', $value );
+				continue;
+			}
+
+			$meta[ $key ] = sanitize_text_field( $value );
+		}
+
+		// Save.
 		update_post_meta( $this->post_id, self::SETTINGS_NAME, $meta );
 
 		// Reload settings in class, to reflect changes.

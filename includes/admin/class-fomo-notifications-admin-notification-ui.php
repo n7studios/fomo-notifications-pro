@@ -134,7 +134,14 @@ class Fomo_Notifications_Admin_Notification_UI {
 		);
 
 		// Define the display fields that must always display.
-		$display_fields = array();
+		$display_fields = array(
+			'text'        => array(
+				'label'       => __( 'Text', 'fomo-notifications' ),
+				'type'        => 'text',
+				'value'       => $settings->get_text(),
+				'description' => esc_html__( 'The notification text to display. Dynamic tags can be used, depending on the source chosen.', 'fomo-notifications' ),
+			),
+		);
 
 		/**
 		 * Define the available settings fields for the display section
@@ -182,7 +189,7 @@ class Fomo_Notifications_Admin_Notification_UI {
 		return array(
 			'conditions_visitor_type' => array(
 				'label'       => __( 'Visitor Type', 'fomo-notifications' ),
-				'type'        => 'select_multiple',
+				'type'        => 'select',
 				'value'       => $this->settings->get_by_key( 'conditions_visitor_type' ),
 				'options'     => $this->get_conditions_visitor_type_options(),
 				'description' => esc_html__( 'The visitors who should see this notification. By default, all visitors will see this notification.', 'fomo-notifications' ),
@@ -201,6 +208,7 @@ class Fomo_Notifications_Admin_Notification_UI {
 	private function get_conditions_visitor_type_options() {
 
 		$options = array(
+			''			 => __( 'All visitors', 'fomo-notifications' ),
 			'logged_in'  => __( 'Logged in visitors', 'fomo-notifications' ),
 			'logged_out' => __( 'Logged out visitors', 'fomo-notifications' ),
 		);
@@ -248,7 +256,7 @@ class Fomo_Notifications_Admin_Notification_UI {
 		}
 
 		// Save settings.
-		$settings->save( array_map( 'sanitize_text_field', wp_unslash( $_POST[ $settings::SETTINGS_NAME ] ) ) );
+		$settings->save( $_POST[ $settings::SETTINGS_NAME ] );
 
 	}
 
