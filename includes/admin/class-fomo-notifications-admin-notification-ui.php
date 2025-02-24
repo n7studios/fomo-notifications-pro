@@ -24,6 +24,13 @@ class Fomo_Notifications_Admin_Notification_UI {
 	 */
 	private $post_type = 'fomo-notification';
 
+	/**
+	 * Holds the notifications settings class.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @var     Fomo_Notifications_Notification_Settings
+	 */
 	private $settings;
 
 	/**
@@ -103,7 +110,8 @@ class Fomo_Notifications_Admin_Notification_UI {
 	public function output_meta_box( $post ) {
 
 		// Load settings for this notification.
-		$this->settings = $settings = new Fomo_Notifications_Notification_Settings( $post->ID );
+		$settings       = new Fomo_Notifications_Notification_Settings( $post->ID );
+		$this->settings = $settings;
 
 		/**
 		 * Define the available notification sources.
@@ -162,6 +170,13 @@ class Fomo_Notifications_Admin_Notification_UI {
 
 	}
 
+	/**
+	 * Returns fields for the conditions section when adding or editing a Notification.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @return  array
+	 */
 	private function get_conditions_fields() {
 
 		return array(
@@ -176,10 +191,17 @@ class Fomo_Notifications_Admin_Notification_UI {
 
 	}
 
+	/**
+	 * Returns options for the Conditions > Visitor Type field.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @return  array
+	 */
 	private function get_conditions_visitor_type_options() {
 
 		$options = array(
-			'logged_in' => __( 'Logged in visitors', 'fomo-notifications' ),
+			'logged_in'  => __( 'Logged in visitors', 'fomo-notifications' ),
 			'logged_out' => __( 'Logged out visitors', 'fomo-notifications' ),
 		);
 

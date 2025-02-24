@@ -16,8 +16,8 @@ class Fomo_Notifications_Notifications {
 
 	/**
 	 * Returns all Notifications
-	 * 
-	 * @since 	1.0.0
+	 *
+	 * @since   1.0.0
 	 */
 	public function get_all() {
 
@@ -68,7 +68,6 @@ class Fomo_Notifications_Notifications {
 
 		// Return filtered results.
 		return $notifications_arr;
-
 
 	}
 

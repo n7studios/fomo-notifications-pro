@@ -38,7 +38,7 @@ class FOMO_Notifications_Admin_Export {
 	public function output_export_options() {
 
 		// Get Notifications.
-		$notifications = new Fomo_Notifications_Notifications;
+		$notifications = new Fomo_Notifications_Notifications();
 		$notifications = $notifications->get_all();
 
 		// Load view.
@@ -59,8 +59,8 @@ class FOMO_Notifications_Admin_Export {
 
 		// Notifications.
 		if ( isset( $params['notifications'] ) ) {
-			$notifications 			= new Fomo_Notifications_Notifications;
-			$notification_ids      	= array_keys( $params['notifications'] );
+			$notifications    = new Fomo_Notifications_Notifications();
+			$notification_ids = array_keys( $params['notifications'] );
 
 			$data['notifications'] = array();
 			foreach ( $notifications->get_all() as $notification_id => $notification ) {

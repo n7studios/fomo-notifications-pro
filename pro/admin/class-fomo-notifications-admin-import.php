@@ -66,9 +66,9 @@ class FOMO_Notifications_Admin_Import {
 		foreach ( $notifications as $notification_id => $settings ) {
 			// Build args.
 			$args = array(
-				'post_type'    => 'fomo-notification',
-				'post_status'  => 'publish',
-				'post_title'   => $settings['title'],
+				'post_type'   => 'fomo-notification',
+				'post_status' => 'publish',
+				'post_title'  => $settings['title'],
 			);
 
 			// Create group.
