@@ -155,7 +155,7 @@ class Fomo_Notifications_Admin_Notification_UI {
 		$conditions_fields = apply_filters( 'fomo_notifications_admin_notification_ui_get_conditions_fields', $conditions_fields, $this->settings, $post->ID );
 
 		// Load view.
-		include FOMO_NOTIFICATIONS_PLUGIN_PATH . 'views/backend/meta-box.php';
+		include FOMO_NOTIFICATIONS_PLUGIN_PATH . 'views/admin/meta-box.php';
 
 		// Output nonce.
 		wp_nonce_field( 'save_notification', $this->post_type . '_nonce' );

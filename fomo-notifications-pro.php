@@ -45,6 +45,7 @@ require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/admin/class-fomo-notific
 
 // Global.
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-notification-settings.php';
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-notifications.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-output.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-post-type.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifications-plugin-settings.php';
@@ -53,6 +54,8 @@ require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/global/class-fomo-notifi
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'includes/sources/class-fomo-notifications-source-woocommerce.php';
 
 // Pro.
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'pro/admin/class-fomo-notifications-admin-export.php';
+require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'pro/admin/class-fomo-notifications-admin-import.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'pro/sources/class-fomo-notifications-source-lum.php';
 require_once FOMO_NOTIFICATIONS_PLUGIN_PATH . 'pro/class-fomo-notifications-pro.php';
 

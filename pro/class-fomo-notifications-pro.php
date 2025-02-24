@@ -251,6 +251,15 @@ class Fomo_Notifications_Pro {
 		$this->classes['admin_notification_ui'] = new Fomo_Notifications_Admin_Notification_UI();
 		$this->classes['admin_settings']        = new Fomo_Notifications_Admin_Settings();
 
+		// Bail if not licensed.
+		if ( ! $this->licensing->check_license_key_valid() ) {
+			return;
+		}
+
+		// Load licensed integrations.
+		$this->classes['import'] = new Fomo_Notifications_Admin_Import();
+		$this->classes['export'] = new Fomo_Notifications_Admin_Export();
+
 		/**
 		 * Initialize integration classes for the WordPress Administration interface.
 		 *
