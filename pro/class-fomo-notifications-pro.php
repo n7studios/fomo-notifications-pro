@@ -79,7 +79,14 @@ class Fomo_Notifications_Pro {
 		$this->plugin->documentation_url = 'https://www.wpzinc.com/documentation/fomo-notifications-pro';
 		$this->plugin->support_url       = 'https://www.wpzinc.com/support';
 		$this->plugin->upgrade_url       = 'https://www.wpzinc.com/plugins/fomo-notifications-pro';
+
+		// Logo.
 		$this->plugin->logo              = FOMO_NOTIFICATIONS_PLUGIN_URL . 'assets/images/icons/logo-dark.svg';
+		$this->plugin->header_background_color     = '#ffffff';
+		$this->plugin->header_primary_text_color   = '#3d3d3d';
+		$this->plugin->header_secondary_text_color = '#6e6e6e';
+
+		// Review.
 		$this->plugin->review_name       = 'fomo-notifications';
 		$this->plugin->review_notice     = sprintf(
 			/* translators: Plugin Name */
@@ -99,6 +106,15 @@ class Fomo_Notifications_Pro {
 		$this->plugin->documentation_url = $this->licensing->get_feature_parameter( 'whitelabelling', 'documentation_url', $this->plugin->documentation_url );
 		if ( ! empty( $this->licensing->get_feature_parameter( 'whitelabelling', 'logo', $this->plugin->logo ) ) ) {
 			$this->plugin->logo = $this->licensing->get_feature_parameter( 'whitelabelling', 'logo', $this->plugin->logo );
+		}
+		if ( ! empty( $this->licensing->get_feature_parameter( 'whitelabelling', 'header_background_color', $this->plugin->header_background_color ) ) ) {
+			$this->plugin->header_background_color = $this->licensing->get_feature_parameter( 'whitelabelling', 'header_background_color', $this->plugin->header_background_color );
+		}
+		if ( ! empty( $this->licensing->get_feature_parameter( 'whitelabelling', 'header_primary_text_color', $this->plugin->header_primary_text_color ) ) ) {
+			$this->plugin->header_primary_text_color = $this->licensing->get_feature_parameter( 'whitelabelling', 'header_primary_text_color', $this->plugin->header_primary_text_color );
+		}
+		if ( ! empty( $this->licensing->get_feature_parameter( 'whitelabelling', 'header_secondary_text_color', $this->plugin->header_secondary_text_color ) ) ) {
+			$this->plugin->header_secondary_text_color = $this->licensing->get_feature_parameter( 'whitelabelling', 'header_secondary_text_color', $this->plugin->header_secondary_text_color );
 		}
 
 		// Dashboard Submodule.

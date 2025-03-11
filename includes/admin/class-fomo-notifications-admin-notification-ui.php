@@ -194,6 +194,20 @@ class Fomo_Notifications_Admin_Notification_UI {
 				'options'     => $this->get_conditions_visitor_type_options(),
 				'description' => esc_html__( 'The visitors who should see this notification. By default, all visitors will see this notification.', 'fomo-notifications' ),
 			),
+			'conditions_visitor_country' => array(
+				'label'       => __( 'Visitor Country', 'fomo-notifications' ),
+				'type'        => 'select_multiple',
+				'value'       => $this->settings->get_by_key( 'conditions_visitor_country' ),
+				'options'     => $this->get_conditions_visitor_country_options(),
+				'description' => esc_html__( 'The countries who should see this notification. By default, all visitors from all countries will see this notification.', 'fomo-notifications' ),
+			),
+			'conditions_visitor_request' => array(
+				'label'       => __( 'Show On', 'fomo-notifications' ),
+				'type'        => 'select_multiple',
+				'value'       => $this->settings->get_by_key( 'conditions_visitor_request' ),
+				'options'     => $this->get_conditions_visitor_request_options(),
+				'description' => esc_html__( 'Where this notification should be displayed. By default, the notification will be displayed site wide.', 'fomo-notifications' ),
+			),
 		);
 
 	}
@@ -217,6 +231,42 @@ class Fomo_Notifications_Admin_Notification_UI {
 		foreach ( get_editable_roles() as $key => $role ) {
 			$options[ 'role_' . $key ] = $role['name'];
 		}
+
+		return $options;
+
+	}
+
+	/**
+	 * Returns options for the Conditions > Visitor Country.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @return  array
+	 */
+	private function get_conditions_visitor_country_options() {
+
+		$options = array(
+			''			 => __( 'All Countries', 'fomo-notifications' ),
+			'SG'  => __( 'Singapore', 'fomo-notifications' ),
+			'GB' => __( 'United Kingdom', 'fomo-notifications' ),
+		);
+
+		return $options;
+
+	}
+
+	/**
+	 * Returns options for the Conditions > Show On.
+	 *
+	 * @since   1.0.0
+	 *
+	 * @return  array
+	 */
+	private function get_conditions_visitor_request_options() {
+
+		$options = array(
+			''			 => __( 'Site Wide', 'fomo-notifications' ),
+		);
 
 		return $options;
 

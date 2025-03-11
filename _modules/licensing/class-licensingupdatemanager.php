@@ -523,7 +523,7 @@ class LicensingUpdateManager {
 	 * @param   mixed  $default_value  Default Value, if Feature or Feature Parameter is not defined.
 	 * @return  mixed                   bool| string
 	 */
-	public function get_feature_parameter( $feature, $parameter, $default_value ) {
+	public function get_feature_parameter( $feature, $parameter, $default_value = '' ) {
 
 		// Check the license has the feature.
 		$has_feature = $this->has_feature( $feature );

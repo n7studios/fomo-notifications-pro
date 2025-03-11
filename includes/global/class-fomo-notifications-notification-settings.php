@@ -102,7 +102,9 @@ class Fomo_Notifications_Notification_Settings {
 			'text'					  => '{name} from {location} purchased {product_name}',
 
 			// Conditions.
-			'conditions_visitor_type' => '',
+			'conditions_visitor_type' 	  => '',
+			'conditions_visitor_location' => array(),
+			'conditions_visitor_request'  => array(),
 		);
 
 		/**
