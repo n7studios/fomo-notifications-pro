@@ -84,9 +84,6 @@ class Fomo_Notifications {
 		// Admin Menus.
 		add_action( 'fomo_notifications_admin_settings_add_settings_page', array( $this, 'admin_menu' ) );
 
-		// Localization.
-		add_action( 'init', array( $this, 'load_language_files' ) );
-
 	}
 
 	/**
@@ -134,7 +131,6 @@ class Fomo_Notifications {
 	public function initialize() {
 
 		$this->initialize_admin();
-		$this->initialize_frontend();
 		$this->initialize_global();
 
 	}
@@ -164,29 +160,6 @@ class Fomo_Notifications {
 	}
 
 	/**
-	 * Initialize classes for the frontend web site
-	 *
-	 * @since   1.9.6
-	 */
-	private function initialize_frontend() {
-
-		// Bail if this request isn't for the frontend web site.
-		if ( is_admin() ) {
-			return;
-		}
-
-		$this->classes['output'] = new Fomo_Notifications_Output();
-
-		/**
-		 * Initialize integration classes for the frontend web site.
-		 *
-		 * @since   1.0.0
-		 */
-		do_action( 'fomo_notifications_initialize_frontend' );
-
-	}
-
-	/**
 	 * Initialize classes required globally, across the WordPress Administration, CLI, Cron and Frontend
 	 * web site.
 	 *
@@ -194,6 +167,8 @@ class Fomo_Notifications {
 	 */
 	private function initialize_global() {
 
+		$this->classes['install']     = new Fomo_Notifications_Install();
+		$this->classes['output'] 	  = new Fomo_Notifications_Output();
 		$this->classes['post_type']   = new Fomo_Notifications_Post_Type();
 		$this->classes['woocommerce'] = new Fomo_Notifications_Source_Woocommerce();
 
@@ -203,20 +178,6 @@ class Fomo_Notifications {
 		 * @since   1.0.0
 		 */
 		do_action( 'fomo_notifications_initialize_global' );
-
-	}
-
-	/**
-	 * Loads the plugin's translated strings, if available.
-	 *
-	 * @since   1.0.0
-	 */
-	public function load_language_files() {
-
-		// If the .mo file for a given language is available in WP_LANG_DIR/fomo-notifications
-		// i.e. it's available as a translation at https://translate.wordpress.org/projects/wp-plugins/fomo-notifications/,
-		// it will be used instead of the .mo file in fomo-notifications/languages.
-		load_plugin_textdomain( 'fomo-notifications', false, 'fomo-notifications/languages' );
 
 	}
 

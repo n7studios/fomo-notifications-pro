@@ -6,6 +6,11 @@
  * @author WP Zinc
  */
 
+// Exit if accessed directly.
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Licensing and Update Manager Class
  *
@@ -722,12 +727,15 @@ class LicensingUpdateManager {
 
 		// Get whitelabelling values.
 		$display_name = $this->get_feature_parameter( 'whitelabelling', 'display_name', $this->plugin->displayName );
+		$description  = $this->get_feature_parameter( 'whitelabelling', 'description', $this->plugin->description );
 		$author_name  = $this->get_feature_parameter( 'whitelabelling', 'author_name', $this->plugin->author_name );
 		$support_url  = $this->get_feature_parameter( 'whitelabelling', 'support_url', $this->plugin->support_url );
 
 		// Change the Plugin Name, Author Name and URIs.
 		$plugins[ $this->plugin->name . '/' . $this->plugin->name . '.php' ]['Name']  = $display_name;
 		$plugins[ $this->plugin->name . '/' . $this->plugin->name . '.php' ]['Title'] = $display_name;
+
+		$plugins[ $this->plugin->name . '/' . $this->plugin->name . '.php' ]['Description'] = $description;
 
 		$plugins[ $this->plugin->name . '/' . $this->plugin->name . '.php' ]['Author']     = $author_name;
 		$plugins[ $this->plugin->name . '/' . $this->plugin->name . '.php' ]['AuthorName'] = $author_name;
